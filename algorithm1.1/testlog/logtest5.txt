@@ -1,0 +1,13 @@
+test5.txt
+Start
+Learner knows the finite alphabet of letters [a].
+round 1
+[0[P],a,0[P]]
+counterexample is a<1111>
+
+Leaner extends the table with the counterexample:
+round 2
+[0[P, P, N],a,0[P, N, N], 1[P, N, N],a,1[N, N, N], 1[P, N, I],1,1[P, N, I], 1[P, N, I],>,0[I, N, N], 1[N, N, N],1,1[N, N, N], 1[P, N, N],1,1[P, N, I], 0[I, N, N],a,0[N, N, N], 1[N, N, N],a,1[N, N, N], 0[N, N, N],a,0[N, N, N], 0[P, P, N],<,1[N, N, N], 0[I, N, N],<,1[N, N, N], 0[P, N, N],a,0[N, N, N], 1[N, N, N],>,0[N, N, N], 0[P, N, N],<,1[P, N, N], 1[P, N, N],>,0[N, N, N], 0[N, N, N],<,1[N, N, N], 1[P, N, I],a,1[N, N, N]]
+counterexample is null
+Finished.
+ The learner got an automaton accepted the Teacher's language

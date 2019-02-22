@@ -1,0 +1,105 @@
+
+FileWriter fileWriter = new FileWriter(file);   
+fileWriter.write(f.getName()); 
+fileWriter.write("\r\n"); 
+//algorithm starts
+fileWriter.write("Start\r\n");
+String testlanguage=folderpath+"/"+ f.getName();
+//get inputs and Teacher stands by
+Teacher_3 teacher1=new Teacher_3(testlanguage);
+alphabet=teacher1.getalphabet();
+//records alphabet to log
+String write="finite alphabet is {"+alphabet.toString()+"}";
+fileWriter.write(write);
+fileWriter.write("\r\n");
+int round=1;
+//learner starts to learn with creating an observation table
+Table_3 learner=new Table_3();
+learner.setAlphabet(alphabet);
+
+learner.setLongPrefix();
+
+//start asking queries
+System.out.println("initialise table and asking short prefixes: ");// test for over repeat
+learner.processMembershipQueriesForTables(learner.getShortPrefixLabels());
+
+System.out.println(" asking  long prefixes...");// test for over repeat
+
+learner.processMembershipQueriesForTables(learner.getLongPrefixLabels());
+
+learner.printTable();
+System.out.println("constructor fininsh...\nchecking close and consistent starts");
+
+// check and make sure table closed and consistent
+				
+makeTableClosedAndConsistent(learner);
+
+//build an automaton with the closed  and consistent table
+Automaton aLearner= new BuildAutomaton(learner);
+//records the automaton information into log
+fileWriter.write("round "+round+"\r\n");
+fileWriter.write(aLearner.getAllTransitions().toString()+"\r\n");
+System.out.println("round "+round+": Learner's automaton is built " );
+
+//ask teacher for an equivalence query
+String counterexample=teacher1.checkAutomaton(aLearner);
+
+//records the equivalence query result into log
+String logCE="counterexample is " + counterexample;
+System.out.println(logCE);
+fileWriter.write(logCE+"\r\n");
+
+// Learner use the resule of the equivalence query. If there is a counter example, extends the table with the couterexample and modifies a new equivalence query. If not, terminates.
+
+while (counterexample!=null) {  
+				
+//use counterexample to extend table
+					
+try {
+learner.extendByCE(counterexample);
+}catch (Exception e) {  
+		fileWriter.write("Exception in "+e.getMessage()+"\r\n");
+				
+		}
+				
+	learner.printTable();
+
+//make table closed and consistent
+try {
+		makeTableClosedAndConsistent(learner);
+}catch (Exception e) {  
+			fileWriter.write("Exception in "+e.getMessage()+"\r\n");
+	} 
+//a new round record
+round++;
+try {
+aLearner= new BuildAutomaton(learner);
+}catch (Exception e) {  	
+		fileWriter.write("Exception in "+e.getMessage()+"\r\n");
+} 
+	//records the new  log
+		fileWriter.write("round "+round+"\r\n");
+fileWriter.write(aLearner.getAllTransitions().toString()+"\r\n");
+System.out.println("round "+round+": Learner's automaton is built " );
+counterexample=teacher1.checkAutomaton(aLearner);
+//records the result of an equivalence query into log
+logCE="counterexample is " + counterexample;
+System.out.println(logCE);
+fileWriter.write(logCE+"\r\n");
+if(round>100){
+	System.out.println("stop by force");
+	break;
+}
+} 
+	String finish="Finished. ";
+if(counterexample==null)
+	finish+="And the learner got an automaton accepted the Teacher's language";
+//algorithm terminates
+fileWriter.write(finish);
+fileWriter.close(); // close filewriter 
+
+
+
+
+
+

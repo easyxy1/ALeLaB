@@ -1,0 +1,19 @@
+% an automaton example
+tfinalStates([q4]).
+ttransition(q5,<,q6).
+ttransition(q3,1,q3).
+ttransition(q2,1,q3).
+ttransition(q3,>,q4).
+ttransition(q2,>,q5).
+ttransition(q1,<,q2).
+ttransition(q3,a,q6).
+ttransition(q2,a,q6).
+ttransition(q4,a,q5).
+ttransition(init,a,q1).
+ttransition(init,<,q6).
+ttransition(q6,1,q6).
+ttransition(q4,<,q6).
+ttransition(q6,a,q6).
+ttransition(q1,a,q5).
+ttransition(q5,a,q5).
+ttransition(q6,>,q5).
