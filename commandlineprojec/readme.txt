@@ -2,21 +2,14 @@ Welcome
 Welcome to Learning Nominal Language with Binders Implementation.
 
 How to run
-run with eclipe
-This implementation is created as an eclipse project. After you download "algorithm1.1" folder, you could import it into eclipse and run directly. For now, you have an example to show the learning progress: 
-run the learningbase.Example.class, 
-follow the instructions on the console to input the language you want to learn, 
-When the messege "Finished." comes, it terminates.
-You can see the pdf file "example.pdf" in the root folder of the project. This show a graph about the result of learning.
-
 run with command line
-After you download "algorithm1.1" folder, you should open a terminal and go to the "algorithm1.1/src" folder.
-
 Type the following LINUX command to compile all the java files:
 
-javac learningbase/*.java nAutomata/*.java word/*.java reTodfa/*.java
-Then to run use:
-java learningbase.Example
+javac learningbase/*.java  word/*.java reTodfa/*.java nAutomata/*.java learningbase/*.java  
+Then to type:
+javac test/Example.java 
+To run use:
+java test.Example
 
 When the messege "Finished." comes, it terminates.
 You can see the pdf file "example.pdf" in the root folder of the project. This show a graph about the result of learning.
