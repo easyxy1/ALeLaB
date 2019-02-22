@@ -9,18 +9,6 @@ follow the instructions on the console to input the language you want to learn,
 When the messege "Finished." comes, it terminates.
 You can see the pdf file "example.pdf" in the root folder of the project. This show a graph about the result of learning.
 
-run with command line
-After you download "algorithm1.1" folder, you should open a terminal and go to the "algorithm1.1/src" folder.
-
-Type the following LINUX command to compile all the java files:
-
-javac learningbase/*.java nAutomata/*.java word/*.java reTodfa/*.java
-Then to run use:
-java test.Example
-
-When the messege "Finished." comes, it terminates.
-You can see the pdf file "example.pdf" in the root folder of the project. This show a graph about the result of learning.
-
 input example
 1. input a canonical expression.
 Before starting learning process, please input the target language and an initial alphabet.
@@ -46,4 +34,5 @@ Please choose how to input the language:
 Please enter a file path: 
 testsamples/1.txt
 
+PS: A graph output file is accessible when you machine could run dot commands.
 Have fun!
