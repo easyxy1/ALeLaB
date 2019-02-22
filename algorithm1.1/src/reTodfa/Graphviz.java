@@ -1,6 +1,6 @@
 package reTodfa;
 
-//GraphViz.java - a simple API to call dot from Java programs
+//This class is a rewrited version of GraphViz.java - a simple API to call dot from Java programs
 
 /*$Id$*/
 /*
