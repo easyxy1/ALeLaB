@@ -34,5 +34,5 @@ Please choose how to input the language:
 Please enter a file path: 
 testsamples/1.txt
 
-PS: A graph output file is accessible when you machine could run dot commands.
+PS: A graph output file is accessible when you machine could run dot commands. If not, the "dotsource.dot" file is as an output to decribe the result.
 Have fun!
