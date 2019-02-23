@@ -1,7 +1,7 @@
 # ALeLaB
 Welcome
 
-ALeLaB-a tool for Learning Nominal Language with Binders.
+ALeLaB-a tool for Learning Nominal Regular Language with Binders.
 
 The algorithm1.1 folder is an eclipse project. You can download and import in eclipse. Details are in folder's readme file.
 
