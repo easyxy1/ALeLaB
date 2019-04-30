@@ -68,6 +68,7 @@ public class RegularExpression {
 				
 			}
 		}
+		
 			
 		// Generate regular expression with the concatenation
 		regular = AddConcat (regular);
@@ -110,10 +111,10 @@ public class RegularExpression {
 					// Pop the '(' left parenthesis
 					operator.pop();
 				
-					} else {
+				} else {
 						while (!operator.isEmpty() && Priority (singlechar, operator.get(operator.size() - 1)) ){
 							doOperation ();
-					}
+						}
 						operator.push(singlechar);
 				}		
 		}		
@@ -207,6 +208,7 @@ public class RegularExpression {
 //		nfa.getNfa().getLast().addTransition(nfa.getNfa().getFirst(), epslon);
 		
 		start.addTransition(nfa.getNfa().getFirst(), epslon);
+		start.setlevel(nfa.getNfa().getFirst().getlevel());
 		start.addTransition(end, epslon);
 		nfa.getNfa().getLast().addTransition(nfa.getNfa().getFirst(), epslon);
 		nfa.getNfa().getLast().addTransition(end, epslon);
@@ -299,14 +301,18 @@ public class RegularExpression {
 			 if ( regular.charAt(i) == '<' && !isInputCharacter(String.valueOf(regular.charAt(i+1))) ) {
 				newRegular += "("+regular.charAt(i) + "(";
 				
+				
 			}else if ( regular.charAt(i) == '<' && isInputCharacter(String.valueOf(regular.charAt(i+1))) ) {
 				newRegular += "("+regular.charAt(i) + ".(";
+				
 				
 			}else if ( regular.charAt(i) == '>' && regular.charAt(i+1) == '>' ) {
 				newRegular += regular.charAt(i) + ")).";
 				
+				
 			}else if ( regular.charAt(i) == '>' && isInputCharacter(String.valueOf(regular.charAt(i+1))) && regular.charAt(i+1) != '>') {
 				newRegular += regular.charAt(i) + ").";
+				
 				
 			}else if ( regular.charAt(i) == '>' && !isInputCharacter(String.valueOf(regular.charAt(i+1)) )) {
 				newRegular += regular.charAt(i) + ")";
@@ -315,13 +321,15 @@ public class RegularExpression {
 				newRegular += regular.charAt(i) + ".";
 				
 			}else if (  !isInputCharacter(String.valueOf(regular.charAt(i))) && regular.charAt(i+1) == '<') {
-				newRegular += regular.charAt(i) + "";
+				newRegular += ""+regular.charAt(i) + ".";
 				
 			}else if (  isInputCharacter(String.valueOf(regular.charAt(i))) && regular.charAt(i+1) == '>') {
 				newRegular += regular.charAt(i) + ").";
 				
+				
 			}else if (  !isInputCharacter(String.valueOf(regular.charAt(i))) && regular.charAt(i+1) == '>') {
 				newRegular += regular.charAt(i) + ").";
+			
 				
 			}else	if ( isInputCharacter(String.valueOf(regular.charAt(i)))  && isInputCharacter(String.valueOf(regular.charAt(i+1))) ) {
 				newRegular += regular.charAt(i) + ".";

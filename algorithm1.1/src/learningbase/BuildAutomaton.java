@@ -26,7 +26,7 @@ import reTodfa.State_Re;
 import word.Word;
 
 public class BuildAutomaton extends Automaton {
-	private static final String epslon="\u03B5";
+//	private static final String epslon="\u03B5";
 //	private static Set <Character> input = new HashSet <Character> ();
 //	private static Stack<Character> operator = new Stack<Character> ();	
 //	private static Stack<NFA> stackNfa = new Stack<NFA> ();
@@ -40,20 +40,20 @@ public class BuildAutomaton extends Automaton {
 //	private Set<Transition> transitions=new HashSet();	
 
 	//create an automaton from an observation table [Version 1.0]
-	public BuildAutomaton(Table t){
+	public BuildAutomaton(Table table){
 		//Set<State> states=new HashSet();
-		t.distinguishContent();
+		table.distinguishContent();
 		//System.out.println(t.getContent().size());
 		
 		//initialise initial state
 		//State initState=this.getinitState();
-		this.addAlphabet(t.setA);
-		this.addfreshname(t.freshname);
+		this.addAlphabet(table.setA);
+		this.addfreshname(table.freshName);
 		List<String> operators=new ArrayList<String>();
 		operators.add("<");
 		operators.add(">");
 		int statecount=0;
-		for(String s:t.getContent()){
+		for(String s:table.getContent()){
 			State newstate=new State(String.valueOf(statecount));
 			newstate.setdistinguishedName(s);
 			this.addState(newstate);
@@ -77,16 +77,16 @@ public class BuildAutomaton extends Automaton {
 	     */
 	    int count=0, c1=0,c2=0,c3=0;
 	    //add tranisitons for states
-	    for(Row r:t.getdistinguishedRows()){
+	    for(Row r:table.getdistinguishedRows()){
 	    	count++;
 	    	fromState=this.getStatebydistinguishedName(r.distinguishContents());
-	    	if(r.getFirstContent().toString().equals(State.FINAL)){
+	    	if(r.getFirstContent()==State.Type.FINAL){
 	    		fromState.setFinal();
     		}
 	    	fromState.setLevel(r.getlevel());
-			for(String a:t.setA){
+			for(String a:table.setA){
 				String to=Word.deleteLambda(r.getLabel()+a);
-				Row toRow=t.getRowForPrefix(to);
+				Row toRow=table.getRowForPrefix(to);
 				toState=this.getStatebydistinguishedName(toRow.distinguishContents());
 				newT=new Transition(fromState,toState, a);
     			fromState.setTransition(newT);
@@ -94,9 +94,9 @@ public class BuildAutomaton extends Automaton {
     			this.addTransition(newT);
     			c1++;
 			}
-			for(String a:t.freshname){
+			for(String a:table.freshName){
 				String to=Word.deleteLambda(r.getLabel()+a);
-				Row toRow=t.getRowForPrefix(to);
+				Row toRow=table.getRowForPrefix(to);
 				
 				if(toRow!=null){
 					toState=this.getStatebydistinguishedName(toRow.distinguishContents());
@@ -109,7 +109,7 @@ public class BuildAutomaton extends Automaton {
 			}
 			for(String a:operators){
 				String to=Word.deleteLambda(r.getLabel()+a);
-				Row toRow=t.getRowForPrefix(to);
+				Row toRow=table.getRowForPrefix(to);
 				
 				if(toRow!=null){
 					toState=this.getStatebydistinguishedName(toRow.distinguishContents());
@@ -233,9 +233,43 @@ public class BuildAutomaton extends Automaton {
 	public BuildAutomaton(String expression, Set<String> alphabet){
 		RegularExpression.clear();
 		RegularExpression.addalphabet(alphabet);
+		if(expression.length()==0){
+			this.clear();
+			State initState=this.getinitState();
+			initState.setInitial();
+			this.addState(initState);
+			this.addAlphabet(alphabet);
+			State finalState=new State("f");
+			finalState.setFinal();
+			this.addState(finalState);
+			this.addFinalState("f");
+			transitions=new HashMap<String, Set<String[]>>();
+			for(String s:alphabet){
+				Transition t=new Transition(initState,initState,s);
+				initState.setTransition(t);
+				this.addTransition(t);
+			}
+			
+		}else if(expression=="0"){
+			this.clear();
+			this.addAlphabet(alphabet);
+			State initState=this.getinitState();
+			initState.setInitial();
+			initState.setFinal();
+			this.addState(initState);
+			this.expandtransitons();
+//			State sinkState=new State("s");
+//			transitions=new HashMap<String, Set<String[]>>();
+//			for(String s:alphabet){
+//				Transition t=new Transition(initState,sinkState,s);
+//				initState.setTransition(t);
+//				this.addTransition(t);
+//			}
+			this.resetFinalstates();
+		}else{
 		NFA nfa=RegularExpression.generateNFA(expression);
 		//add sink states
-		nfa.outputtoTXT("og");
+		//nfa.outputtoTXT("og");
 		//System.out.println(nfa.allstateinformation());
 		//nfa.expandtransitons();
 		//nfa.outputtoTXT("ep");
@@ -244,12 +278,15 @@ public class BuildAutomaton extends Automaton {
 		DFA dfa=RegularExpression.generateDFA(nfa);
 		//System.out.println("not minimised \n"+dfa.allstateinformation());
 		
-		//dfa.minimisedfa();
+		dfa.minimisedfa();
 		//System.out.println("minimised "+dfa.allstateinformation());
 		
 		dfa.outputtoTXT("teacherdfa");
 		File file=new File("teacherdfa.txt");
-		new BuildAutomaton(file,alphabet);
+		Automaton newAutomaton= new BuildAutomaton(file,alphabet);
+		this.setinitState(newAutomaton.getinitState());
+		
+		}
 	}
 	public void gettransitons(){
 		if(transitions.size()>0){
@@ -304,6 +341,7 @@ public class BuildAutomaton extends Automaton {
 					case "<":{
 						fromstate.setAlocateTo(tostate);
 						temptotallevel=Math.max(tostate.getLevel(),temptotallevel); 
+						//System.out.println(temptotallevel);
 						this.addfreshname(String.valueOf(temptotallevel));
 						Transition t=new Transition(fromstate,tostate,symbol);
 						this.addTransition(t);

@@ -17,6 +17,7 @@ import java.util.regex.Pattern;
 import nAutomata.Automaton;
 import nAutomata.Operators;
 import nAutomata.State;
+import nAutomata.State.Type;
 import nAutomata.Transition;
 import reTodfa.DFA;
 import reTodfa.NFA;
@@ -28,22 +29,22 @@ import word.Word;
 
 public class Teacher {
 	
-	private static Automaton teacherAutomaton;
-	private Set<String> selectedcounterexample;
+	private Automaton teacherAutomaton;
+	private Set<String> selectedCounterexample;
 	private int equivalentRound=0;
 	//numbers of answering membership queries
 	private static int answeredMQ=0;
 	private static List<State> checkedState=new ArrayList<State>();
 	//the strategy to select counterexamples
 	private Strategy strategy=Strategy.VERTICAL;
-	private int totallevel=0;
-	
+	private int totalLevel=0;
+	private String testCounterexampleRecording="";
 	public enum Strategy{VERTICAL, HORIZONTAL, MIX}
 	public final static boolean Fromfile=true;
 	public final static boolean FromRE=false;
 	
 	private String regularExpression=null;
-	private String datafrom=null;
+	private String dataFrom=null;
 	
 	
 	/**
@@ -51,32 +52,32 @@ public class Teacher {
 	 * @param choice the way to create Teacher Oracle, true is to create from automata data, false is to create from regular expressions	
 	 * @param alphabet finite alphabet
 	 * @param strategy the way to choose counterexamples
-	 * @param strings depends on choice, it is a regular expression or a file path
+	 * @param language depends on choice, it is a regular expression or a file path
 	 */
-	public Teacher(boolean choice,Set<String> alphabet, Strategy strategy, String strings){
+	public Teacher(boolean choice,Set<String> alphabet, Strategy strategy, String language){
 		//init
 		setStrategy(strategy);
-		this.totallevel=0;
-		this.setdataFrom(strings);
-		this.selectedcounterexample=new HashSet<String>();
+		this.totalLevel=0;
+		this.setdataFrom(language);
+		this.selectedCounterexample=new HashSet<String>();
 		this.answeredMQ=0;
 		teacherAutomaton=null;
 		
 		//creat teacher
 		if(choice){
 		//case 1, create teacher with files
-			File file=new File(strings);
+			File file=new File(language);
 			teacherAutomaton =new BuildAutomaton(file,alphabet);
 				
 			
 		}else{
 		//case 2, create teacher with regular expressions
 		
-				this.setRE(strings);
+				this.setRE(language);
 			
 				RegularExpression.clear();
 				RegularExpression.addalphabet(alphabet);
-				NFA nfa=RegularExpression.generateNFA(strings);
+				NFA nfa=RegularExpression.generateNFA(language);
 				
 				nfa.outputtoTXT("og");
 				//System.out.println(nfa.allstateinformation());
@@ -98,7 +99,7 @@ public class Teacher {
 				
 		}
 		if(teacherAutomaton!=null){
-			this.totallevel=teacherAutomaton.getTotalLevel();
+			this.totalLevel=teacherAutomaton.getTotalLevel();
 		}else{
 			System.out.println("Teacher_3 constuctor creates no automata");
 		}
@@ -113,7 +114,7 @@ public class Teacher {
 		return this.strategy;
 	}
 	@SuppressWarnings("static-access")
-	public int getansweredMQ(){
+	public int getAnsweredMQ(){
 		return this.answeredMQ;
 	}
 	@SuppressWarnings("static-access")
@@ -131,35 +132,35 @@ public class Teacher {
 	}
 	
 	private void setdataFrom(String dataFrom){
-		this.datafrom=dataFrom;
+		this.dataFrom=dataFrom;
 	}
 	
 	public String getdataFrom() {
 		// TODO Auto-generated method stub
-		return this.datafrom;
+		return this.dataFrom;
 	}
 	
 	//functionality methods
-	public static String getanswer(String word){
+	public Type getAnswer(String word){
 		answeredMQ++;
 		word=Word.deleteLambda(word);
 		State s= teacherAutomaton.getStateBypath(word);
 		if(s!=null){
 			if(s.getFinal()){
-				return State.FINAL;
+				return State.Type.FINAL;
 			}else{
 				/* this method had infinite loop in some deterministic nominal automata */
 				  if(Operators.getAcceptedSuffix1(teacherAutomaton, word)!=null){
-					return State.PREFIX;
+					return State.Type.PREFIX;
 				  }else
-					return State.NO;	
+					return State.Type.SINK;	
 			}
 		}else
-			return State.NO;
+			return State.Type.SINK;
 	
 	}
 	
-	public Set<String> getalphabet() {
+	public Set<String> getAlphabet() {
 		// TODO Auto-generated method stub
 		return teacherAutomaton.getalphabet();
 	}
@@ -174,11 +175,10 @@ public class Teacher {
 	}
 	
 	public String checkAutomaton(Automaton a){
-		
-
 		String counterexample=null;
 		Automaton teacher =this.getAutomaton();
 		Automaton learner =a;
+		this.equivalentRound++;
 		//check two automata equivalence.
 		/**
 		 * according to two minimal automata, if they have same size of states they accept the same language. 
@@ -190,53 +190,98 @@ public class Teacher {
 			//set a basic range of counterexamples' length
 			int teacherLength=teacher.getAllstates().size();
 			int learnerLength=learner.getAllstates().size();
-			int maxLength=Math.max(teacherLength, learnerLength);
-			int counterexampleLength=0;
+			int maxLength=0;
+//			if(this.strategy==Strategy.HORIZONTAL)
+//				maxLength=Math.min(teacherLength, learnerLength);
+//			else
+				maxLength=Math.max(teacherLength, learnerLength);
+			int counterexampleLength=learnerLength;
 			//System.out.println("teacher has "+teacher.getAllstates().size());
 			
 			Set<String> availableCEset= new HashSet<String>();
-			
-			if(learner.getAllFinalstates().isEmpty() && teacher.getAllFinalstates().isEmpty()){
-				counterexample=null;
-			}else{ //find out all words of the length of teacher automaton's states' quantity 
-					//while(availableCEset.isEmpty() && counterexampleLength<maxLength){
-					while( counterexampleLength<maxLength){
-						availableCEset.addAll(Operators.getAvailableCEset(teacher, learner, counterexampleLength));
-						//remove all the selected counterexample, then the result is the set of available counterexamples for this turn.
-						//availableCEset.removeAll(selectedcounterexample);
-						counterexampleLength++;
-					}
-					
-			
-			}
-			//System.out.println("availableCEset is empty?"+availableCEset);
-			if(!availableCEset.isEmpty()){
-				//System.out.println("start selecting a counterexample");
-				switch(this.strategy){
-				case VERTICAL: counterexample=ceStrategy1(availableCEset);break;
-				case HORIZONTAL: counterexample=ceStrategy2(availableCEset);break;
-				default: System.out.println("Unknown strategy");
-				}
-			}else{
-
-				System.out.println("no enough sample, please add counterexample length");
-			}
-			
-			
-			
-			
-			
+			counterexample=selectCE(learner,counterexampleLength,maxLength);
+			//version: manage following code to the method selecteCE
+//			if(learner.getAllFinalstates().isEmpty() && teacher.getAllFinalstates().isEmpty()){
+//				counterexample=null;
+//			}else{ //find out all words of the length of teacher automaton's states' quantity 
+//					//while(availableCEset.isEmpty() && counterexampleLength<maxLength){
+//					while( counterexampleLength<maxLength){
+//						availableCEset.addAll(Operators.getAvailableCEset(teacher, learner, counterexampleLength));
+//						//remove all the selected counterexample, then the result is the set of available counterexamples for this turn.
+//						//availableCEset.removeAll(selectedcounterexample);
+//						counterexampleLength++;
+//					}
+//					
+//			
+//			}
+//			//System.out.println("availableCEset is empty?"+availableCEset);
+//			this.testCounterexampleRecording=testCounterexampleRecording+"\n equivalence query round "+this.equivalentRound;
+//			if(!availableCEset.isEmpty()){
+//				//System.out.println("start selecting a counterexample");
+//				switch(this.strategy){
+//				case VERTICAL: counterexample=verticalStrategy(availableCEset);break;
+//				case HORIZONTAL: counterexample=horizontalStrategy(availableCEset);break;
+//				default: System.out.println("Unknown strategy");
+//				}
+//				this.testCounterexampleRecording=testCounterexampleRecording+"\n selected counterexample is "+counterexample;
+//			}else{
+//
+//				System.out.println("no enough sample, please add counterexample length");
+//			}
+		
 	}//end if
 		//equivalence query finished, reply to learner
-		equivalentRound++;
-		this.selectedcounterexample.add(counterexample);
+		//equivalentRound++;
+		this.selectedCounterexample.add(counterexample);
 		
 		return counterexample;
 		
 	}
 	
+	//select a counterexample under strategy
+	private String selectCE(Automaton learner,int counterexampleLength,int maxLength){
+		String selectedString = null;
+		int index=0;
+		Automaton teacher =this.getAutomaton();
+		int lengthFlag=maxLength;
+		
+		Set<String> availableCEset= new HashSet<String>();
+		while(availableCEset.isEmpty() && index<(maxLength*2)){
+			lengthFlag=lengthFlag+index;
+			if(learner.getAllFinalstates().isEmpty() && teacher.getAllFinalstates().isEmpty()){
+				selectedString=null;
+			}else{ //find out all words of the length of teacher automaton's states' quantity 
+					//while(availableCEset.isEmpty() && counterexampleLength<maxLength){
+					while( counterexampleLength<lengthFlag){
+						availableCEset.addAll(Operators.getAvailableCEset(teacher, learner, counterexampleLength));
+						//remove all the selected counterexample, then the result is the set of available counterexamples for this turn.
+						availableCEset.removeAll(this.selectedCounterexample);
+						counterexampleLength++;
+					}
+					
+			
+			}
+			index++;
+		}
+		switch(this.strategy){
+		case VERTICAL: selectedString=verticalStrategy(availableCEset);break;
+		case HORIZONTAL: selectedString=horizontalStrategy(availableCEset);break;
+		default: System.out.println("Unknown strategy");
+		}
+		this.testCounterexampleRecording=testCounterexampleRecording+"\n selected counterexample is "+selectedString;
+	
+		
+		return selectedString;
+	}
+	
+	
+	//output record for couterexample
+	public String getrecordofCE(){
+		return this.testCounterexampleRecording;
+	}
+	
 	//Strategy 1 VERTICAL: add more names
-	private String ceStrategy1(Set<String> wordlist){
+	private String verticalStrategy(Set<String> wordlist){
 		String selected=null;
 		
 				//strategy main body. select one ideal word as the counterexample
@@ -264,7 +309,7 @@ public class Teacher {
 				List<String> idealset=new ArrayList<String>();
 				while(!wordlist.isEmpty() && choice>=0 && idealset.isEmpty()){
 					for(String s:wordlist){
-						if(Word.maxlayer(s)==choice){
+						if(Word.maxLayer(s)==choice){
 							idealset.add(s);
 						}
 					}
@@ -280,7 +325,7 @@ public class Teacher {
 	}
 
 	//Strategy 2 HORIZAONTAL: the completion of a layer (not precise, base functionality)
-		private String ceStrategy2(Set<String> wordlist){
+		private String horizontalStrategy(Set<String> wordlist){
 			String selected=null;
 			boolean notfound=true;
 			
@@ -306,7 +351,7 @@ public class Teacher {
 			int choice=0;
 			while(!wordlist.isEmpty() && choice<=this.getAutomaton().getTotalLevel() && idealset.isEmpty()){
 				for(String s:wordlist){
-					if(Word.maxlayer(s)==choice){
+					if(Word.maxLayer(s)==choice){
 						idealset.add(s);
 					}
 				}

@@ -16,7 +16,7 @@ public class Word {
 		return returnWord;
 	}
 	//check a string is legal string
-	public static boolean legal(String word) {
+	public static boolean isLegal(String word) {
 		// TODO Auto-generated method stub
 		boolean legal=true;
 		int langenumber=0;
@@ -78,7 +78,7 @@ public class Word {
 		return num;
 	}
 	
-	public static int maxlayer(String word){
+	public static int maxLayer(String word){
 		String w=word;
 		int layer=0;
 		while(w.contains("<")){

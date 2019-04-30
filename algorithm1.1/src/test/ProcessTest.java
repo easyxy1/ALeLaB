@@ -58,7 +58,7 @@ public class ProcessTest {
 	public void testDFAfileToAutomata() {
 		File file=new File("teacherdfa.txt");
 		Automaton test=new BuildAutomaton(file,alphabet);
-		Graphviz.createDotGraph(test.tostringforDot(), "outputname");
+		Graphviz.createDotGraph(test.toStringforDot(), "outputname");
 
 
 	}
@@ -68,7 +68,7 @@ public class ProcessTest {
 	public void testTeachercreation() {
 		Teacher teacher1=new Teacher(Teacher.FromRE,alphabet,Strategy.HORIZONTAL,RE);
 		Automaton a =teacher1.getAutomaton();
-		Graphviz.createDotGraph(a.tostringforDot(), "teacher3");
+		Graphviz.createDotGraph(a.toStringforDot(), "teacher3");
 	}//test pass only this single. if test all tests by sequence, nullpoint error comes.
 	
 		

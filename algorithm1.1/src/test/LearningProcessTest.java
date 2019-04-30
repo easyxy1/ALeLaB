@@ -14,7 +14,7 @@ import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 
-import learningbase.LearningProcess;
+import learningbase.Learner;
 import learningbase.Teacher;
 import learningbase.Teacher.Strategy;
 import nAutomata.Automaton;
@@ -73,11 +73,10 @@ public class LearningProcessTest {
 	}
 	
 	private String runningrecord(Teacher teacher1){
-	//	Teacher_3 teacher1=new Teacher_3(INPUTRE,alphabet,STRATEGYVERTICAL,testRE);
 		String testRE=teacher1.getdataFrom();
-		String recordforcsv=Word.convertforLatex(testRE);
+		String recordforcsv=testRE;
 		Automaton a =teacher1.getAutomaton();
-		a.visualisation();
+		//a.visualisation();
 		if(a!=null){
 			String timerecord="";
 			String memoryrecord="";
@@ -93,15 +92,15 @@ public class LearningProcessTest {
 				System.out.println("memory before run: total "+run.totalMemory()+" free "+run.freeMemory()+" use "+startMemory);
 				
 				//learning process
-				LearningProcess test1= new LearningProcess(teacher1);
+				Learner test1= new Learner(teacher1);
 				
 				//get closed & consistent rounds and membership queries rounds
 				closedrounds=test1.getclosedrounds();
 				System.out.println("closed rounds:"+closedrounds);
 				consistentrounds=test1.getconsistentrounds();
 				System.out.println("consistent rounds rounds:"+consistentrounds);
-				int membershipqueries=teacher1.getansweredMQ();
-				//System.out.println("membership queries rounds:"+membershipqueries);
+				int membershipqueries=test1.getnumberofMQ();
+				System.out.println("membership queries rounds:"+membershipqueries);
 				
 				//end data collection
 				long endTime=System.currentTimeMillis();
@@ -116,7 +115,7 @@ public class LearningProcessTest {
 				memoryrecord="Main loop costed memory: "+costedMemory+".\r\n";
 				//System.out.println(test1.getLearnerAutomaton().tostringforDot());
 				String outputname="learner"+String.valueOf(testcount)+"via1";
-				Graphviz.createDotGraph(test1.getLearnerAutomaton().tostringforDot(), outputname);
+				Graphviz.createDotGraph(test1.getLearnerAutomaton().toStringforDot(), outputname);
 				
 				//test records
 				String processroundrecord="Main loop runs "+test1.getround()+" rounds.\r\n";
@@ -129,8 +128,8 @@ public class LearningProcessTest {
 //				fileWriter.close(); // close filewriter for txt
 				
 //				FileWriter fileWriterCSV = new FileWriter(file1,true);   
-    			//recordforcsv=recordforcsv+"\t"+teacher1.getStrategy()+"\t"+MainloopcostedTime+"\t"+test1.getround()+"\t"+costedMemory+"\r\n";
-    			recordforcsv=recordforcsv+","+teacher1.getStrategy()+","+MainloopcostedTime+","+test1.getround()+","+costedMemory+"\r\n";
+				//template:strategy,time,equivalence rounds,$memory,closed rounds, consistent rounds$, number of membership queries 
+				recordforcsv=recordforcsv+","+teacher1.getStrategy()+","+MainloopcostedTime+","+test1.getround()+","+test1.getnumberofMQ()+"\r\n";
 //   			fileWriterCSV.write(recordforcsv);
 //    			fileWriterCSV.close();// close filewriter for csv
 				
@@ -165,7 +164,8 @@ public class LearningProcessTest {
 		while(m>0){
 			Teacher teacher1=new Teacher(Teacher.FromRE,alphabet,strategy,test);
 			String testRE=teacher1.getdataFrom();
-			recordforcsv=n+","+Word.convertforLatex(testRE);
+			//recordforcsv=n+","+Word.convertforLatex(testRE);
+			recordforcsv=n+","+testRE;
 			Automaton a =teacher1.getAutomaton();
 			if(a!=null){
 				try {
@@ -173,27 +173,28 @@ public class LearningProcessTest {
 					Runtime run=Runtime.getRuntime();
 					run.gc();
 					long startTime=System.currentTimeMillis();
-					long startMemory=run.totalMemory()-run.freeMemory();
+					//long startMemory=run.totalMemory()-run.freeMemory();
 					
 					//learning process
-					LearningProcess test1= new LearningProcess(teacher1);
+					Learner test1= new Learner(teacher1);
 					
 					//end data collection
 					long endTime=System.currentTimeMillis();
-					long endMemory=run.totalMemory()-run.freeMemory();
+					//long endMemory=run.totalMemory()-run.freeMemory();
 					
-					System.out.println("memory before run: "+(endMemory-startMemory)+"round"+test1.getround()+" time "+(endTime-startTime));
+					//System.out.println("memory after run: "+(endMemory-startMemory)+"round"+test1.getround()+" time "+(endTime-startTime));
 					
 					//analyse time, round and memory
 					MainloopcostedTime=MainloopcostedTime+endTime-startTime;
-					costedMemory=costedMemory+endMemory-startMemory;
+					//costedMemory=costedMemory+endMemory-startMemory;
 					rounds=rounds+test1.getround();
 					
 					//get closed & consistent rounds and membership queries rounds
 					closedrounds= closedrounds+test1.getclosedrounds();
 					
 					consistentrounds=consistentrounds+test1.getconsistentrounds();
-					membershipqueries=membershipqueries+teacher1.getansweredMQ();
+					//get the number of membership queries which asked
+					membershipqueries=membershipqueries+test1.getnumberofMQ();
 					
 				} catch (IOException e) {
 				// TODO Auto-generated catch block
@@ -214,13 +215,13 @@ public class LearningProcessTest {
 			closedrounds=closedrounds/n;
 			consistentrounds=consistentrounds/n;
 			//record for csv file
-			//template:strategy,time,equivalence rounds,memory,closed rounds, consistent rounds, number of membership queries 
-			recordforcsv=recordforcsv+","+strategy+","+MainloopcostedTime+","+rounds+","+costedMemory+","+closedrounds+","+consistentrounds+","+membershipqueries+"\r\n";
+			//template:strategy,time,equivalence rounds,$memory,closed rounds, consistent rounds$, number of membership queries 
+			recordforcsv=recordforcsv+","+strategy+","+MainloopcostedTime+","+rounds+","+membershipqueries+"\r\n";
 		
 		return recordforcsv;
 	}
 	//test on input a file with visualised output via counterexample strategy VERTICAL
-	@Test
+	@Ignore
 		public void test1() throws IOException{
 			
 			String testpath="testsamples/1.txt";//file needs to be created
@@ -234,7 +235,7 @@ public class LearningProcessTest {
 		}//visualisation pass but not perfect, and content pass 
 	
 //test input a file with visualisation of learner's automaton via counterexample strategy HORIZONTAL
-	@Test
+	@Ignore
 	public void test2(){
 		String testpath="testsamples/1.txt";
 		Teacher teacher1=new Teacher(Teacher.Fromfile,alphabet,Strategy.HORIZONTAL,testpath);
@@ -246,15 +247,17 @@ public class LearningProcessTest {
 	
 	@Test
 	public void test3(){
-		String testRE="<1<2<3>>>";
+		//alphabet.add("c");
+		String testRE="a*";
 		
-		Teacher teacher1=new Teacher(Teacher.FromRE,alphabet,Strategy.HORIZONTAL,testRE);
-		//System.out.println(teacher1.getAutomaton().getAllstates().size()+"\n"+teacher1.getAutomaton().tostringforDot());
-		Graphviz.createDotGraph(teacher1.getAutomaton().tostringforDot(), "teacher"+testcount+"via1");
-		runningrecord(teacher1);
+		Teacher teacher1=new Teacher(Teacher.FromRE,alphabet,Strategy.VERTICAL,testRE);
+		//System.out.println(teacher1.getAutomaton().getAllstates().size()+"\n"+teacher1.getAutomaton().toStringforDot());
+		Graphviz.createDotGraph(teacher1.getAutomaton().toStringforDot(), "teacher"+testcount+"via1");
+		String result=runningrecord(teacher1);
+		System.out.println(result);
 		testcount++;
 	}//visualisation pass and content pass 20180830 (on buildautomaton with whole data)
-	@Test
+	@Ignore
 	public void test3_1(){
 		String testRE="ab+<1a>+<b<2>>";
 		
@@ -264,7 +267,7 @@ public class LearningProcessTest {
 		testcount++;
 	}
 	
-	@Test
+	@Ignore
 	public void testaveragebyrepeatingtimes() throws IOException{
 		String testRE="<1<2<3>>>";
 		File file=new File("averagedata.csv");
@@ -292,7 +295,7 @@ public class LearningProcessTest {
 		fileWriter.write(runningaverage(testRE,100,Strategy.VERTICAL));
 		fileWriter.close(); // close filewriter 
 	}
-	@Test
+	@Ignore
 	public void testcompare1() throws IOException{
 		String testRE1="<1<2<3>>>";
 		String testRE2="<<<123>>>";
@@ -303,7 +306,7 @@ public class LearningProcessTest {
 		    	   compare1.createNewFile();
 		    	   FileWriter fileWriter = new FileWriter(compare1,true);   
  			
-		    	   String head="Repeating,Expressions,Strategy,Time,Equavalence Rounds,Memory\r\n";
+		    	   String head="Repeating,Expressions,Strategy,Time,Equavalence Rounds,Memory,NumberofMQ\r\n";
 		    	   fileWriter.write(head);
 		    	   fileWriter.close(); // close filewriter 
 		       } catch (IOException e) {
@@ -324,15 +327,16 @@ public class LearningProcessTest {
 		fileWriter.write(runningaverage(testRE2,10,Strategy.HORIZONTAL));
 		fileWriter.close(); // close filewriter 
 	}
-	private void printaveragedata(String expression,String filename) throws IOException{
+	private void printaveragedata(String expression,String filename,Strategy strategy) throws IOException{
 		File file=new File(filename+".csv");
 		//int times=1;
 		if (!file.exists()) {  
 		       try {
 		    	   file.createNewFile();
 		    	   FileWriter fileWriter = new FileWriter(file,true);   
- 			
-		    	   String head="Repeating,Expressions,Strategy,Time,Rounds,Memory\r\n";
+		    	   //template:n, expression,strategy,time,equivalence rounds, number of membership queries 
+					
+		    	   String head="Repeating,Expressions,Strategy,Time,NumberofEQ,NumberofMQ\r\n";
 		    	   fileWriter.write(head);
 		    	   fileWriter.close(); // close filewriter 
 		       } catch (IOException e) {
@@ -342,25 +346,109 @@ public class LearningProcessTest {
 		}
 		FileWriter fileWriter = new FileWriter(file,true); 
 		
-		fileWriter.write(runningaverage(expression,1,Strategy.VERTICAL));
-		fileWriter.write(runningaverage(expression,10,Strategy.VERTICAL));
-		fileWriter.write(runningaverage(expression,20,Strategy.VERTICAL));
-		fileWriter.write(runningaverage(expression,50,Strategy.VERTICAL));
-		fileWriter.write(runningaverage(expression,100,Strategy.VERTICAL));
+		fileWriter.write(runningaverage(expression,10,strategy));
+		//fileWriter.write(runningaverage(expression,10,Strategy.VERTICAL));
+		//fileWriter.write(runningaverage(expression,20,strategy));
+		//fileWriter.write(runningaverage(expression,50,Strategy.VERTICAL));
+		//fileWriter.write(runningaverage(expression,100,Strategy.VERTICAL));
 		fileWriter.close(); // close filewriter 
 	}
 	
 	@Test
-	public void testplusincreasing() throws IOException{
+	public void testConcaIncreasing() throws IOException{
 		List<String> testREs=new ArrayList<String>();
-		testREs.add("<a>");
-		testREs.add("<b>");
-		testREs.add("<1>");
-		testREs.add("<a+b+1>");
-		testREs.add("<a>+<b>+<1>");
+		testREs.add("abababaaba");
+		//testREs.add("aba");
+		//testREs.add("ab*");
+		//testREs.add("a<1*>");
+		//testREs.add("a<1>ba<1>");
+		String filename="ConcaIncreasing";
 		for(String testRE:testREs){
-			String filename="plusincreasing"+testREs.indexOf(testRE);
-			printaveragedata(testRE,filename);
+			//String filename="ConcaIncreasing"+testREs.indexOf(testRE);
+			printaveragedata(testRE,filename,Strategy.HORIZONTAL);
+		}
+		for(String testRE:testREs){
+			//String filename="ConcaIncreasing"+testREs.indexOf(testRE);
+			printaveragedata(testRE,filename,Strategy.VERTICAL);
+		}
+		
+	}
+	@Test
+	public void testUnionIncreasing() throws IOException{
+		alphabet.add("c");
+		List<String> testREs=new ArrayList<String>();
+		//testREs.add("aa");
+		testREs.add("aa+ba+<b+ab>");
+		//testREs.add("aa+<1a+bb+<a>>");
+		//testREs.add("a+b+c");
+		String filename="UnionIncreasing";
+		for(String testRE:testREs){
+			
+			printaveragedata(testRE,filename,Strategy.HORIZONTAL);
+			System.out.println("part finished");
+		}
+		
+		for(String testRE:testREs){
+			//String filename="UnionIncreasing"+testREs.indexOf(testRE);
+			printaveragedata(testRE,filename,Strategy.VERTICAL);
+			System.out.println("part finished");
+		}
+		
+	}
+	@Test //(timeout=300000)
+	public void testBinderIncreasing() throws IOException{
+		List<String> testREs=new ArrayList<String>();
+		//testREs.add("ab");
+		//testREs.add("a<b>");
+		testREs.add("a<a<b*<a>>>");
+		//testREs.add("<<<<<ab>>>>>");
+		String filename="BinderIncreasing";
+		for(String testRE:testREs){
+			//String filename="BinderIncreasing"+testREs.indexOf(testRE);
+			printaveragedata(testRE,filename,Strategy.HORIZONTAL);
+			System.out.println("part finished");
+		}
+		for(String testRE:testREs){
+			//String filename="BinderIncreasing"+testREs.indexOf(testRE);
+			printaveragedata(testRE,filename,Strategy.VERTICAL);
+			System.out.println("part finished");
+		}
+		
+	}
+	@Test //(timeout=300000)
+	public void testAlphabetIncreasing() throws IOException{
+		String testRE="a(<1+<2+ab*>>+aa)";
+		String filename="AlphabetIncreasing";
+		//printaveragedata(testRE,filename,Strategy.HORIZONTAL);
+		//System.out.println("part finished");
+		//printaveragedata(testRE,filename,Strategy.VERTICAL);
+		//System.out.println("part finished");
+		
+		alphabet.add("c");
+		printaveragedata(testRE,filename,Strategy.HORIZONTAL);
+		System.out.println("part finished");
+//		printaveragedata(testRE,filename,Strategy.VERTICAL);
+//		System.out.println("part finished");
+//		alphabet.add("d");
+//		printaveragedata(testRE,filename,Strategy.HORIZONTAL);
+//		System.out.println("part finished");
+//		printaveragedata(testRE,filename,Strategy.VERTICAL);
+//		System.out.println("part finished");
+	}
+	@Ignore
+	public void testCompareStrategies() throws IOException{
+		List<String> testREs=new ArrayList<String>();
+		testREs.add("ab*");
+		testREs.add("<ab*>");
+		testREs.add("<<<ab*>>>");
+		testREs.add("<<<<<ab*>>>>>");
+		for(String testRE:testREs){
+			String filename="ConcaIncreasing"+testREs.indexOf(testRE);
+			printaveragedata(testRE,filename,Strategy.HORIZONTAL);
+		}
+		for(String testRE:testREs){
+			String filename="ConcaIncreasing"+testREs.indexOf(testRE);
+			printaveragedata(testRE,filename,Strategy.VERTICAL);
 		}
 		
 	}

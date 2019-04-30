@@ -15,16 +15,18 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import nAutomata.State;
+import nAutomata.State.Type;
 import word.Word;
 
 public class Table {
 	List<Row> rowS;
 	List<Row> rowSA;
 	List<String> setE;
-	private int maxlevel=0;
+	private int maxLevel=0;
 	//alphabet
 	Set<String> setA;
-	Set<String> freshname=new HashSet<>();
+	Set<String> freshName=new HashSet<>();
 	Set<String> operators=new HashSet<>();
 	//variable for output automaton file
 	private Set<String> contents=new HashSet<>();
@@ -84,7 +86,7 @@ public class Table {
 	
 	//print data of table as a table
 	public void printTable(){
-			System.out.println("Names are"+this.freshname.toString());
+			System.out.println("Names are"+this.freshName.toString());
 			//System.out.println("\t\t\t\t"+"lv"+"\t\t"+setE.toString());
 			/*try use java formatter as a structure
 			int widthforlabel=this.totalStatenumber*2;
@@ -137,15 +139,15 @@ public class Table {
 		int i=Integer.parseInt(s);
 		if(!s.equals("0"))
 			for(int j=1;j<=i;j++)
-				this.freshname.add(String.valueOf(j));
+				this.freshName.add(String.valueOf(j));
 	}
 	//set the max level of current table
 	private void setmaxlevel(int i){
-		this.maxlevel=i;
+		this.maxLevel=i;
 	}
 	//get the max level of current table
-	private int getmaxlevel(){
-		return	this.maxlevel;
+	public int getmaxlevel(){
+		return	this.maxLevel;
 	}
 	
 	// The set of suffixes in the observation table, often called "E". 
@@ -180,7 +182,7 @@ public class Table {
 //					this.addLongPrefix(a);
 //				}else{
 					//sa=s+a;
-					if(Word.legal(sa)){
+					if(Word.isLegal(sa)){
 						this.addLongPrefix(sa);
 						//add dealocated symbol
 //						if(Word.alcatedNumber(sa)>Word.dealcatedNumber(sa)) {
@@ -190,11 +192,11 @@ public class Table {
 					}
 			//	}
 			}
-			if(this.maxlevel>0){
-				for(String a : this.freshname){
+			if(this.maxLevel>0){
+				for(String a : this.freshName){
 					//String sa=s+a;
 					String sa=Word.deleteLambda(s+a);
-					if(Word.legal(sa)){
+					if(Word.isLegal(sa)){
 						this.addLongPrefix(sa);
 						//add dealocated symbol
 //						if(Word.alcatedNumber(sa)>Word.dealcatedNumber(sa)) {
@@ -206,7 +208,7 @@ public class Table {
 				for(String a : this.operators){
 					//String sa=s+a;
 					String sa=Word.deleteLambda(s+a);
-					if(Word.legal(sa) && 0<=Word.unmatched(sa) && Word.unmatched(sa)<=this.maxlevel){
+					if(Word.isLegal(sa) && 0<=Word.unmatched(sa) && Word.unmatched(sa)<=this.maxLevel){
 						this.addLongPrefix(sa);
 						//add dealocated symbol
 //						if(Word.alcatedNumber(sa)>Word.dealcatedNumber(sa)) {
@@ -315,7 +317,7 @@ public class Table {
 		}
 
 		//Add the result of a membership query to this table
-		void addResult(String prefix, String suffix, String result) {
+		void addResult(String prefix, String suffix, Type result) {
 			if (!setE.contains(suffix)) {
 				throw new IllegalArgumentException("Suffix '" + suffix + "' is not part of the suffixes set");
 			}
@@ -326,8 +328,8 @@ public class Table {
 			addResultToRow(result, suffixPosition, row);
 		}
 
-		private void addResultToRow(String result, int suffixPosition, Row row) {
-			final List<String> values = row.getContents();
+		private void addResultToRow(Type result, int suffixPosition, Row row) {
+			final List<Type> values = row.getContents();
 			if (values.size() > suffixPosition) {
 				if (!values.get(suffixPosition).equals(result)) {
 					throw new IllegalStateException(
@@ -680,12 +682,12 @@ public class Table {
 			}else if(secondRow==null){
 				return "";
 			}else{
-				final List<String> firstRowContents = firstRow.getContents();
-				final List<String> secondRowContents = secondRow.getContents();
+				final List<Type> firstRowContents = firstRow.getContents();
+				final List<Type> secondRowContents = secondRow.getContents();
 
 				for (int i = 0; i < firstRow.getContents().size(); i++) {
-					String symbolFirstRow = firstRowContents.get(i);
-					String symbolSecondRow = secondRowContents.get(i);
+					Type symbolFirstRow = firstRowContents.get(i);
+					Type symbolSecondRow = secondRowContents.get(i);
 					if (!symbolFirstRow.equals(symbolSecondRow)) {
 						return setE.get(i);
 					}
@@ -705,28 +707,28 @@ public class Table {
 		 * 		The suffixes which are appended to the states before sending the resulting word to the oracle.
 		 * @throws IOException 
 		 */
-		public void processMembershipQueriesForTables(Collection<String> states) throws IOException{
-			//Collection<String> states= this.getShortPrefixLabels();
-			Collection<String> suffixes=this.getSuffixes();
-			List<DefaultQuery> queries = new ArrayList<>(states.size());
-			for (String label : states) {
-				for (String suffix : suffixes) {
-					queries.add(new DefaultQuery(label, suffix));
-					
-				}
-			}
-			for(DefaultQuery query : queries) {
-				String state = query.getPrefix();
-				String suffix=	query.getSuffix();
-				String word=state+suffix;
-			//	if(Word.legal(word)){
-					query.answer(Teacher.getanswer(word));// language input sotluion 1
-					this.addResult(state, suffix, query.getOutput());
-			//	}else{
-			//		this.addResult(state, suffix,"X"); //for attempt 3: with "X", algorithm goes more complex and associated automaton is not minimal
-			//	}
-			}
-		}
+//		public void processMembershipQueriesForTables(Collection<String> states) throws IOException{
+//			//Collection<String> states= this.getShortPrefixLabels();
+//			Collection<String> suffixes=this.getSuffixes();
+//			List<DefaultQuery> queries = new ArrayList<>(states.size());
+//			for (String label : states) {
+//				for (String suffix : suffixes) {
+//					queries.add(new DefaultQuery(label, suffix));
+//					
+//				}
+//			}
+//			for(DefaultQuery query : queries) {
+//				String state = query.getPrefix();
+//				String suffix=	query.getSuffix();
+//				String word=state+suffix;
+//			//	if(Word.legal(word)){
+//					query.answer(Teacher.getanswer(word));// language input sotluion 1
+//					this.addResult(state, suffix, query.getOutput());
+//			//	}else{
+//			//		this.addResult(state, suffix,"X"); //for attempt 3: with "X", algorithm goes more complex and associated automaton is not minimal
+//			//	}
+//			}
+//		}
 		
 		/**
 		 * Appends each symbol of the alphabet (with size m) to the given word (with size w),
@@ -744,20 +746,20 @@ public class Table {
 			
 			for(String a : setA){
 				String sa=Word.deleteLambda(word+a);
-					if(Word.legal(sa))
+					if(Word.isLegal(sa))
 						newCandidates.add(sa);
 			}
-			if(this.maxlevel>0){
-				for(String a : this.freshname){
+			if(this.maxLevel>0){
+				for(String a : this.freshName){
 					String sa=Word.deleteLambda(word+a);
-					if(Word.legal(sa)){
+					if(Word.isLegal(sa)){
 						newCandidates.add(sa);
 					}
 				}
 				for(String a : this.operators){
 					
 					String sa=Word.deleteLambda(word+a);
-					if(Word.legal(sa) && 0<=Word.unmatched(sa) && Word.unmatched(sa)<=this.maxlevel){
+					if(Word.isLegal(sa) && 0<=Word.unmatched(sa) && Word.unmatched(sa)<=this.maxLevel){
 						newCandidates.add(sa);
 					}
 				}
@@ -845,14 +847,14 @@ public class Table {
 		}
 		
 		
-		//use counterexample to extend table (with own tool)
+		//use counterexample to extend table (in table)
 		public void extendByCE(String c){
 			//System.out.println("counterexample is " + c);
 			
-			if(Word.maxlayer(c)!=0){
-				this.setmaxlevel(Math.max(maxlevel, Word.maxlayer(c)));
-				String newname=String.valueOf(this.maxlevel);
-				if(!this.freshname.contains(newname)){
+			if(Word.maxLayer(c)!=0){
+				this.setmaxlevel(Math.max(maxLevel, Word.maxLayer(c)));
+				String newname=String.valueOf(this.maxLevel);
+				if(!this.freshName.contains(newname)){
 					this.addfreshname(newname);
 					
 				}
@@ -872,13 +874,13 @@ public class Table {
 			}
 			//System.out.println("maxlevel is " + maxlevel);
 			this.setLongPrefix();
-			try {
-				this.processMembershipQueriesForTables(this.getShortPrefixLabels());
-				this.processMembershipQueriesForTables(this.getLongPrefixLabels());
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+//			try {
+//				this.processMembershipQueriesForTables(this.getShortPrefixLabels());
+//				this.processMembershipQueriesForTables(this.getLongPrefixLabels());
+//			} catch (IOException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
 		
 		}
 

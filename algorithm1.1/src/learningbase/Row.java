@@ -3,6 +3,7 @@ package learningbase;
 import java.util.Set;
 
 import nAutomata.State;
+import nAutomata.State.Type;
 import word.Word;
 
 import java.util.ArrayList;
@@ -14,7 +15,7 @@ import java.util.List;
 
 public class Row {
 	// set of this row's data
-	List<String> rowdata;
+	List<Type> rowdata;
 	// this row's label, s in S/S.A
 	final String s;
 	// whether this row in S or SA
@@ -30,8 +31,8 @@ public class Row {
 	}
 		
 	//add value for a suffix 
-	void addValue(String value){
-		rowdata.add(value);
+	void addValue(Type result){
+		rowdata.add(result);
 	}
 	
 	//clear this row values
@@ -74,7 +75,7 @@ public class Row {
 	}
 	
 	//get all cell contents in this row
-	public List<String> getContents(){
+	public List<Type> getContents(){
 		return  Collections.unmodifiableList(rowdata);
 	}
 	//get a combined content for distinguishing this row
@@ -83,7 +84,7 @@ public class Row {
 			return  contents;
 		}
 	//get the first content. 
-	public String getFirstContent(){
+	public Type getFirstContent(){
 		return this.rowdata.get(0);
 	}
 	

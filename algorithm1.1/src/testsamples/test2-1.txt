@@ -1,0 +1,11 @@
+final 4
+init a 2
+init b 3
+2 a 4
+2 b 6
+3 a 6
+3 b 4
+4 a 6
+4 b 6
+6 a 6
+6 b 6

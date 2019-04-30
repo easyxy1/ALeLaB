@@ -1,0 +1,307 @@
+test4.txt
+Start
+alphabet is {[a]}
+round 1
+[[N] a [N], init a [N]]
+counterexample is <1>
+round 2
+[[P, N] 1 [P, I], [N, N] a [N, N], [N, N] a [N, N], [N, N] > [N, N], [N, N] 1 [N, N], [P, N] > [N, N], [N, N] > [N, N], [N, N] > [N, N], [P, I] > [I, N], [P, I] 1 [N, N], [P, I] a [N, N], init a [N, N], init < [P, N], [I, N] a [N, N], [P, I] > [I, N], [N, N] > [N, N], [P, N] a [P, I]]
+counterexample is a
+round 3
+[[P, N] 1 [P, I], [N, N] a [N, N], [N, N] > [N, N], [P, N] > [N, N], [N, N] 1 [N, N], init < [P, N], [N, N] > [N, N], [P, I] > [I, N], [N, N] > [N, N], [P, I] > [I, N], [P, N] a [P, I], [P, I] a [N, N], [N, N] > [N, N], [N, N] a [N, N], [P, I] 1 [N, N], init a [N, N], [I, N] a [N, N]]
+counterexample is a
+round 4
+[init a [N, N], [P, N] 1 [P, I], [P, I] > [I, N], [N, N] a [N, N], [N, N] > [N, N], init < [P, N], [P, I] 1 [N, N], [P, I] a [N, N], [N, N] > [N, N], [P, N] a [P, I], [N, N] > [N, N], [N, N] 1 [N, N], [I, N] a [N, N], [P, N] > [N, N], [P, I] > [I, N], [N, N] a [N, N], [N, N] > [N, N]]
+counterexample is a
+round 5
+[[N, N] > [N, N], [N, N] > [N, N], [P, I] 1 [N, N], [N, N] > [N, N], [P, N] 1 [P, I], [N, N] 1 [N, N], [N, N] a [N, N], [I, N] a [N, N], [P, N] a [P, I], [P, N] > [N, N], [P, I] a [N, N], [N, N] a [N, N], [P, I] > [I, N], [P, I] > [I, N], [N, N] > [N, N], init a [N, N], init < [P, N]]
+counterexample is a
+round 6
+[init < [P, N], [N, N] > [N, N], [N, N] > [N, N], [P, I] > [I, N], [P, I] a [N, N], [P, N] 1 [P, I], [N, N] > [N, N], [I, N] a [N, N], [P, N] a [P, I], init a [N, N], [N, N] 1 [N, N], [P, I] 1 [N, N], [P, I] > [I, N], [N, N] > [N, N], [N, N] a [N, N], [P, N] > [N, N], [N, N] a [N, N]]
+counterexample is a
+round 7
+[[N, N] a [N, N], [P, I] 1 [N, N], [N, N] > [N, N], [N, N] a [N, N], [N, N] > [N, N], [P, N] > [N, N], [N, N] > [N, N], [P, I] > [I, N], [I, N] a [N, N], init < [P, N], [P, I] a [N, N], [P, N] 1 [P, I], [N, N] 1 [N, N], init a [N, N], [P, I] > [I, N], [P, N] a [P, I], [N, N] > [N, N]]
+counterexample is a
+round 8
+[[P, N] a [P, I], [P, N] > [N, N], [N, N] a [N, N], [N, N] > [N, N], [P, N] 1 [P, I], [P, I] a [N, N], [P, I] > [I, N], [N, N] a [N, N], [N, N] 1 [N, N], [P, I] 1 [N, N], [N, N] > [N, N], [I, N] a [N, N], [N, N] > [N, N], init a [N, N], init < [P, N], [P, I] > [I, N], [N, N] > [N, N]]
+counterexample is a
+round 9
+[[N, N] 1 [N, N], [P, I] a [N, N], init < [P, N], [P, I] > [I, N], [N, N] > [N, N], [N, N] > [N, N], [N, N] > [N, N], [P, I] > [I, N], [P, N] a [P, I], [P, I] 1 [N, N], [I, N] a [N, N], [P, N] 1 [P, I], [P, N] > [N, N], [N, N] a [N, N], init a [N, N], [N, N] a [N, N], [N, N] > [N, N]]
+counterexample is a
+round 10
+[[P, N] 1 [P, I], init < [P, N], [N, N] > [N, N], [P, N] a [P, I], [P, N] > [N, N], [N, N] > [N, N], [N, N] a [N, N], [N, N] > [N, N], [P, I] > [I, N], [I, N] a [N, N], [P, I] > [I, N], [P, I] 1 [N, N], [N, N] 1 [N, N], [P, I] a [N, N], [N, N] a [N, N], [N, N] > [N, N], init a [N, N]]
+counterexample is a
+round 11
+[[N, N] > [N, N], [N, N] > [N, N], [P, I] > [I, N], init a [N, N], [I, N] a [N, N], [P, N] a [P, I], [N, N] 1 [N, N], [N, N] > [N, N], [P, I] > [I, N], [N, N] > [N, N], [P, N] 1 [P, I], [P, N] > [N, N], [N, N] a [N, N], init < [P, N], [P, I] 1 [N, N], [N, N] a [N, N], [P, I] a [N, N]]
+counterexample is a
+round 12
+[[N, N] a [N, N], [N, N] a [N, N], [P, I] a [N, N], [P, I] > [I, N], [I, N] a [N, N], [N, N] 1 [N, N], [N, N] > [N, N], [N, N] > [N, N], init < [P, N], [P, N] > [N, N], [N, N] > [N, N], [N, N] > [N, N], [P, N] a [P, I], [P, I] > [I, N], [P, I] 1 [N, N], init a [N, N], [P, N] 1 [P, I]]
+counterexample is a
+round 13
+[[P, N] 1 [P, I], init a [N, N], [N, N] a [N, N], [P, I] > [I, N], [P, N] a [P, I], [P, I] 1 [N, N], [P, I] a [N, N], [P, I] > [I, N], [P, N] > [N, N], [N, N] a [N, N], [N, N] > [N, N], [N, N] > [N, N], [N, N] 1 [N, N], [N, N] > [N, N], [I, N] a [N, N], [N, N] > [N, N], init < [P, N]]
+counterexample is a
+round 14
+[[P, I] > [I, N], [P, I] 1 [N, N], [P, I] a [N, N], [N, N] a [N, N], [N, N] a [N, N], [P, N] > [N, N], [N, N] > [N, N], [N, N] > [N, N], [P, N] a [P, I], [N, N] 1 [N, N], init a [N, N], [N, N] > [N, N], [I, N] a [N, N], [N, N] > [N, N], [P, N] 1 [P, I], init < [P, N], [P, I] > [I, N]]
+counterexample is a
+round 15
+[[N, N] > [N, N], [P, I] a [N, N], [N, N] > [N, N], [P, N] a [P, I], [N, N] 1 [N, N], [N, N] a [N, N], [N, N] a [N, N], [P, I] 1 [N, N], init < [P, N], [N, N] > [N, N], [N, N] > [N, N], [P, N] 1 [P, I], init a [N, N], [P, N] > [N, N], [I, N] a [N, N], [P, I] > [I, N], [P, I] > [I, N]]
+counterexample is a
+round 16
+[[P, N] 1 [P, I], [N, N] a [N, N], [P, I] 1 [N, N], [P, I] a [N, N], [P, N] > [N, N], [N, N] > [N, N], [P, I] > [I, N], [N, N] > [N, N], [N, N] > [N, N], [N, N] 1 [N, N], init a [N, N], [N, N] > [N, N], [I, N] a [N, N], init < [P, N], [P, I] > [I, N], [N, N] a [N, N], [P, N] a [P, I]]
+counterexample is a
+round 17
+[[P, I] a [N, N], [N, N] > [N, N], [N, N] > [N, N], [I, N] a [N, N], [P, N] > [N, N], [N, N] > [N, N], [P, N] a [P, I], [P, I] > [I, N], [N, N] 1 [N, N], [N, N] a [N, N], init a [N, N], [N, N] a [N, N], [P, I] > [I, N], [P, N] 1 [P, I], [P, I] 1 [N, N], [N, N] > [N, N], init < [P, N]]
+counterexample is a
+round 18
+[[N, N] a [N, N], [P, N] 1 [P, I], [N, N] > [N, N], [P, N] > [N, N], [P, I] 1 [N, N], [N, N] 1 [N, N], init a [N, N], [P, I] a [N, N], [P, I] > [I, N], [N, N] > [N, N], [P, N] a [P, I], [I, N] a [N, N], [N, N] > [N, N], [N, N] > [N, N], [N, N] a [N, N], [P, I] > [I, N], init < [P, N]]
+counterexample is a
+round 19
+[[N, N] a [N, N], [N, N] > [N, N], [P, I] > [I, N], [I, N] a [N, N], [N, N] a [N, N], [P, I] > [I, N], init < [P, N], [N, N] > [N, N], [N, N] 1 [N, N], [P, I] a [N, N], [P, N] a [P, I], [P, I] 1 [N, N], [P, N] 1 [P, I], [P, N] > [N, N], init a [N, N], [N, N] > [N, N], [N, N] > [N, N]]
+counterexample is a
+round 20
+[[N, N] > [N, N], [P, N] > [N, N], [I, N] a [N, N], [N, N] a [N, N], init a [N, N], [N, N] > [N, N], [P, I] > [I, N], [P, N] a [P, I], [P, I] a [N, N], [P, I] > [I, N], [N, N] > [N, N], [N, N] 1 [N, N], init < [P, N], [P, I] 1 [N, N], [N, N] > [N, N], [N, N] a [N, N], [P, N] 1 [P, I]]
+counterexample is a
+round 21
+[[P, I] > [I, N], [P, N] a [P, I], [P, I] a [N, N], init a [N, N], [N, N] > [N, N], [N, N] a [N, N], [I, N] a [N, N], [P, I] 1 [N, N], [N, N] 1 [N, N], [P, N] 1 [P, I], [P, N] > [N, N], [N, N] > [N, N], [P, I] > [I, N], [N, N] a [N, N], [N, N] > [N, N], [N, N] > [N, N], init < [P, N]]
+counterexample is a
+round 22
+[[N, N] > [N, N], [I, N] a [N, N], [N, N] > [N, N], [P, I] > [I, N], [N, N] > [N, N], [N, N] 1 [N, N], [P, N] a [P, I], init a [N, N], [N, N] > [N, N], [P, N] 1 [P, I], init < [P, N], [P, N] > [N, N], [P, I] > [I, N], [N, N] a [N, N], [P, I] 1 [N, N], [N, N] a [N, N], [P, I] a [N, N]]
+counterexample is a
+round 23
+[init < [P, N], [I, N] a [N, N], [N, N] 1 [N, N], [P, I] a [N, N], [N, N] > [N, N], [P, N] a [P, I], [N, N] a [N, N], [N, N] a [N, N], [P, N] 1 [P, I], [P, I] 1 [N, N], [P, I] > [I, N], [P, I] > [I, N], init a [N, N], [N, N] > [N, N], [N, N] > [N, N], [N, N] > [N, N], [P, N] > [N, N]]
+counterexample is a
+round 24
+[[P, I] > [I, N], [P, N] > [N, N], [P, N] 1 [P, I], [N, N] a [N, N], [P, I] > [I, N], [N, N] 1 [N, N], [N, N] a [N, N], [N, N] > [N, N], init a [N, N], [N, N] > [N, N], [N, N] > [N, N], [P, I] 1 [N, N], [P, I] a [N, N], [N, N] > [N, N], [I, N] a [N, N], [P, N] a [P, I], init < [P, N]]
+counterexample is a
+round 25
+[[N, N] > [N, N], [P, N] 1 [P, I], [N, N] a [N, N], [P, I] a [N, N], [P, N] a [P, I], [P, I] > [I, N], [N, N] > [N, N], [P, I] 1 [N, N], [N, N] > [N, N], init < [P, N], init a [N, N], [N, N] > [N, N], [N, N] a [N, N], [P, N] > [N, N], [N, N] 1 [N, N], [I, N] a [N, N], [P, I] > [I, N]]
+counterexample is a
+round 26
+[[P, I] > [I, N], init < [P, N], [P, I] > [I, N], [P, I] a [N, N], [P, N] > [N, N], [N, N] a [N, N], init a [N, N], [P, N] 1 [P, I], [I, N] a [N, N], [N, N] > [N, N], [P, N] a [P, I], [N, N] > [N, N], [N, N] > [N, N], [P, I] 1 [N, N], [N, N] a [N, N], [N, N] 1 [N, N], [N, N] > [N, N]]
+counterexample is a
+round 27
+[[N, N] a [N, N], [N, N] > [N, N], [P, I] a [N, N], [P, N] a [P, I], [N, N] > [N, N], [N, N] > [N, N], [P, I] 1 [N, N], [N, N] a [N, N], [I, N] a [N, N], init < [P, N], [P, N] > [N, N], [P, I] > [I, N], [P, N] 1 [P, I], [N, N] > [N, N], init a [N, N], [P, I] > [I, N], [N, N] 1 [N, N]]
+counterexample is a
+round 28
+[init < [P, N], [N, N] a [N, N], [N, N] > [N, N], [N, N] a [N, N], [P, I] > [I, N], [P, N] 1 [P, I], [P, I] a [N, N], [N, N] > [N, N], [P, N] > [N, N], [N, N] 1 [N, N], [P, I] > [I, N], [I, N] a [N, N], [N, N] > [N, N], [P, I] 1 [N, N], [N, N] > [N, N], [P, N] a [P, I], init a [N, N]]
+counterexample is a
+round 29
+[[N, N] a [N, N], [P, I] a [N, N], [N, N] > [N, N], init a [N, N], [P, I] > [I, N], [N, N] > [N, N], init < [P, N], [I, N] a [N, N], [P, N] > [N, N], [N, N] > [N, N], [P, I] > [I, N], [P, N] 1 [P, I], [P, N] a [P, I], [N, N] 1 [N, N], [N, N] a [N, N], [P, I] 1 [N, N], [N, N] > [N, N]]
+counterexample is a
+round 30
+[[N, N] a [N, N], [N, N] > [N, N], [N, N] > [N, N], [P, N] a [P, I], [N, N] > [N, N], [N, N] > [N, N], [P, I] > [I, N], [N, N] 1 [N, N], init < [P, N], [P, I] a [N, N], init a [N, N], [P, I] > [I, N], [P, N] > [N, N], [N, N] a [N, N], [P, I] 1 [N, N], [P, N] 1 [P, I], [I, N] a [N, N]]
+counterexample is a
+round 31
+[init < [P, N], init a [N, N], [P, I] > [I, N], [N, N] > [N, N], [N, N] > [N, N], [P, I] 1 [N, N], [P, I] a [N, N], [P, N] 1 [P, I], [N, N] a [N, N], [N, N] > [N, N], [N, N] > [N, N], [P, I] > [I, N], [P, N] a [P, I], [I, N] a [N, N], [N, N] a [N, N], [N, N] 1 [N, N], [P, N] > [N, N]]
+counterexample is a
+round 32
+[init a [N, N], init < [P, N], [I, N] a [N, N], [P, I] 1 [N, N], [N, N] > [N, N], [N, N] > [N, N], [N, N] 1 [N, N], [P, N] a [P, I], [N, N] a [N, N], [P, N] > [N, N], [N, N] > [N, N], [P, I] > [I, N], [P, N] 1 [P, I], [N, N] a [N, N], [N, N] > [N, N], [P, I] > [I, N], [P, I] a [N, N]]
+counterexample is a
+round 33
+[[P, I] a [N, N], [N, N] a [N, N], init a [N, N], [P, N] > [N, N], [N, N] > [N, N], [N, N] > [N, N], [I, N] a [N, N], [N, N] > [N, N], [P, I] > [I, N], [P, N] 1 [P, I], [N, N] > [N, N], init < [P, N], [N, N] 1 [N, N], [P, I] 1 [N, N], [P, I] > [I, N], [N, N] a [N, N], [P, N] a [P, I]]
+counterexample is a
+round 34
+[[N, N] a [N, N], [P, I] 1 [N, N], [N, N] > [N, N], init < [P, N], [N, N] > [N, N], [N, N] 1 [N, N], [N, N] > [N, N], init a [N, N], [P, I] > [I, N], [P, N] 1 [P, I], [N, N] > [N, N], [I, N] a [N, N], [N, N] a [N, N], [P, I] > [I, N], [P, N] a [P, I], [P, I] a [N, N], [P, N] > [N, N]]
+counterexample is a
+round 35
+[[P, N] 1 [P, I], [I, N] a [N, N], init a [N, N], [N, N] > [N, N], init < [P, N], [P, N] a [P, I], [N, N] > [N, N], [P, N] > [N, N], [N, N] a [N, N], [N, N] > [N, N], [P, I] 1 [N, N], [N, N] a [N, N], [P, I] > [I, N], [N, N] 1 [N, N], [P, I] a [N, N], [P, I] > [I, N], [N, N] > [N, N]]
+counterexample is a
+round 36
+[[P, I] > [I, N], [P, I] > [I, N], [N, N] > [N, N], [P, I] a [N, N], [N, N] > [N, N], init < [P, N], init a [N, N], [N, N] 1 [N, N], [N, N] > [N, N], [N, N] > [N, N], [P, N] 1 [P, I], [P, N] a [P, I], [N, N] a [N, N], [P, I] 1 [N, N], [N, N] a [N, N], [I, N] a [N, N], [P, N] > [N, N]]
+counterexample is a
+round 37
+[[P, N] a [P, I], [P, N] > [N, N], [P, N] 1 [P, I], [P, I] > [I, N], init < [P, N], [N, N] > [N, N], [N, N] > [N, N], [N, N] 1 [N, N], init a [N, N], [P, I] a [N, N], [P, I] > [I, N], [I, N] a [N, N], [N, N] a [N, N], [N, N] > [N, N], [N, N] > [N, N], [P, I] 1 [N, N], [N, N] a [N, N]]
+counterexample is a
+round 38
+[[I, N] a [N, N], [N, N] a [N, N], [N, N] > [N, N], [P, N] a [P, I], [P, I] > [I, N], init a [N, N], [N, N] > [N, N], init < [P, N], [N, N] a [N, N], [N, N] > [N, N], [N, N] > [N, N], [P, N] 1 [P, I], [P, I] a [N, N], [P, I] 1 [N, N], [P, N] > [N, N], [N, N] 1 [N, N], [P, I] > [I, N]]
+counterexample is a
+round 39
+[[P, I] > [I, N], [P, I] > [I, N], [P, I] 1 [N, N], [N, N] a [N, N], [N, N] > [N, N], [P, N] a [P, I], [N, N] > [N, N], [P, I] a [N, N], [N, N] a [N, N], [P, N] 1 [P, I], init a [N, N], [N, N] > [N, N], init < [P, N], [N, N] 1 [N, N], [P, N] > [N, N], [N, N] > [N, N], [I, N] a [N, N]]
+counterexample is a
+round 40
+[[P, N] > [N, N], init < [P, N], [P, I] 1 [N, N], [I, N] a [N, N], [P, N] 1 [P, I], [N, N] > [N, N], [N, N] > [N, N], [P, I] > [I, N], [P, I] > [I, N], [P, N] a [P, I], [N, N] a [N, N], [N, N] > [N, N], [N, N] 1 [N, N], init a [N, N], [N, N] > [N, N], [N, N] a [N, N], [P, I] a [N, N]]
+counterexample is a
+round 41
+[[P, I] > [I, N], [I, N] a [N, N], [P, I] > [I, N], init < [P, N], [N, N] 1 [N, N], [N, N] > [N, N], [P, I] a [N, N], [P, N] a [P, I], [N, N] > [N, N], [P, N] 1 [P, I], [N, N] > [N, N], [N, N] a [N, N], init a [N, N], [N, N] > [N, N], [P, I] 1 [N, N], [N, N] a [N, N], [P, N] > [N, N]]
+counterexample is a
+round 42
+[[I, N] a [N, N], [N, N] a [N, N], [N, N] > [N, N], [P, N] > [N, N], init < [P, N], [N, N] > [N, N], init a [N, N], [P, I] > [I, N], [N, N] a [N, N], [P, I] a [N, N], [N, N] > [N, N], [P, N] 1 [P, I], [P, N] a [P, I], [P, I] > [I, N], [N, N] > [N, N], [N, N] 1 [N, N], [P, I] 1 [N, N]]
+counterexample is a
+round 43
+[[N, N] > [N, N], [P, I] a [N, N], [P, I] > [I, N], [N, N] > [N, N], [P, I] > [I, N], [N, N] a [N, N], [I, N] a [N, N], [N, N] 1 [N, N], [N, N] > [N, N], [P, N] a [P, I], init < [P, N], [N, N] > [N, N], [P, I] 1 [N, N], [P, N] > [N, N], [P, N] 1 [P, I], [N, N] a [N, N], init a [N, N]]
+counterexample is a
+round 44
+[[P, N] a [P, I], [N, N] 1 [N, N], [P, I] > [I, N], [P, I] 1 [N, N], [N, N] a [N, N], [P, I] > [I, N], [N, N] > [N, N], [N, N] > [N, N], [P, N] > [N, N], [N, N] > [N, N], [P, I] a [N, N], [I, N] a [N, N], init < [P, N], [N, N] a [N, N], init a [N, N], [P, N] 1 [P, I], [N, N] > [N, N]]
+counterexample is a
+round 45
+[[P, N] 1 [P, I], [P, I] 1 [N, N], [N, N] a [N, N], [P, I] a [N, N], [P, N] a [P, I], [P, I] > [I, N], [N, N] > [N, N], [N, N] 1 [N, N], [N, N] a [N, N], [P, N] > [N, N], [N, N] > [N, N], [I, N] a [N, N], init a [N, N], [P, I] > [I, N], [N, N] > [N, N], init < [P, N], [N, N] > [N, N]]
+counterexample is a
+round 46
+[[N, N] a [N, N], [P, I] 1 [N, N], [P, N] > [N, N], [P, I] > [I, N], [N, N] > [N, N], [N, N] a [N, N], [N, N] > [N, N], init a [N, N], [P, N] 1 [P, I], [P, I] a [N, N], [I, N] a [N, N], [P, N] a [P, I], [N, N] > [N, N], [N, N] 1 [N, N], [P, I] > [I, N], init < [P, N], [N, N] > [N, N]]
+counterexample is a
+round 47
+[[P, I] 1 [N, N], init < [P, N], [P, N] a [P, I], [P, I] a [N, N], [P, I] > [I, N], [N, N] a [N, N], [N, N] > [N, N], [N, N] > [N, N], [N, N] > [N, N], init a [N, N], [I, N] a [N, N], [N, N] 1 [N, N], [N, N] a [N, N], [P, N] 1 [P, I], [P, I] > [I, N], [N, N] > [N, N], [P, N] > [N, N]]
+counterexample is a
+round 48
+[[P, N] 1 [P, I], [N, N] > [N, N], [P, I] a [N, N], [N, N] > [N, N], [N, N] a [N, N], [P, I] > [I, N], init a [N, N], [N, N] > [N, N], [N, N] a [N, N], [P, I] 1 [N, N], [P, I] > [I, N], [N, N] 1 [N, N], [P, N] a [P, I], init < [P, N], [I, N] a [N, N], [N, N] > [N, N], [P, N] > [N, N]]
+counterexample is a
+round 49
+[[P, N] > [N, N], [N, N] 1 [N, N], [N, N] > [N, N], [N, N] > [N, N], [P, N] 1 [P, I], [P, I] 1 [N, N], [N, N] a [N, N], init a [N, N], [N, N] > [N, N], [N, N] a [N, N], [N, N] > [N, N], init < [P, N], [P, I] a [N, N], [P, N] a [P, I], [P, I] > [I, N], [P, I] > [I, N], [I, N] a [N, N]]
+counterexample is a
+round 50
+[[P, I] > [I, N], [N, N] a [N, N], [P, I] > [I, N], [N, N] > [N, N], init a [N, N], [P, I] 1 [N, N], [P, N] a [P, I], [N, N] 1 [N, N], [N, N] > [N, N], [P, N] > [N, N], [N, N] a [N, N], [N, N] > [N, N], [P, N] 1 [P, I], [I, N] a [N, N], [P, I] a [N, N], [N, N] > [N, N], init < [P, N]]
+counterexample is a
+round 51
+[init a [N, N], init < [P, N], [P, N] > [N, N], [P, I] > [I, N], [P, I] 1 [N, N], [P, I] > [I, N], [N, N] a [N, N], [N, N] > [N, N], [N, N] > [N, N], [P, N] 1 [P, I], [N, N] > [N, N], [P, I] a [N, N], [N, N] > [N, N], [N, N] a [N, N], [N, N] 1 [N, N], [I, N] a [N, N], [P, N] a [P, I]]
+counterexample is a
+round 52
+[[N, N] > [N, N], [N, N] a [N, N], [P, I] a [N, N], [P, N] a [P, I], [N, N] 1 [N, N], [P, I] > [I, N], init a [N, N], init < [P, N], [N, N] > [N, N], [N, N] > [N, N], [P, I] > [I, N], [N, N] a [N, N], [P, N] 1 [P, I], [P, I] 1 [N, N], [N, N] > [N, N], [P, N] > [N, N], [I, N] a [N, N]]
+counterexample is a
+round 53
+[[P, N] a [P, I], [N, N] > [N, N], [P, N] 1 [P, I], init < [P, N], [P, I] > [I, N], [I, N] a [N, N], [P, I] 1 [N, N], [N, N] a [N, N], [N, N] > [N, N], [P, I] > [I, N], [N, N] 1 [N, N], [N, N] a [N, N], [P, N] > [N, N], [N, N] > [N, N], init a [N, N], [P, I] a [N, N], [N, N] > [N, N]]
+counterexample is a
+round 54
+[[N, N] a [N, N], [P, I] a [N, N], init a [N, N], [P, N] a [P, I], [N, N] 1 [N, N], [N, N] > [N, N], [P, I] > [I, N], [P, N] 1 [P, I], [N, N] > [N, N], init < [P, N], [P, N] > [N, N], [P, I] 1 [N, N], [N, N] > [N, N], [N, N] a [N, N], [I, N] a [N, N], [P, I] > [I, N], [N, N] > [N, N]]
+counterexample is a
+round 55
+[[N, N] 1 [N, N], [N, N] > [N, N], init a [N, N], [N, N] a [N, N], [P, I] 1 [N, N], [I, N] a [N, N], [N, N] a [N, N], [N, N] > [N, N], [N, N] > [N, N], [P, N] 1 [P, I], [N, N] > [N, N], [P, N] a [P, I], [P, I] > [I, N], init < [P, N], [P, I] a [N, N], [P, N] > [N, N], [P, I] > [I, N]]
+counterexample is a
+round 56
+[init < [P, N], [N, N] a [N, N], [N, N] > [N, N], [P, N] > [N, N], [P, I] a [N, N], init a [N, N], [N, N] > [N, N], [N, N] 1 [N, N], [P, I] 1 [N, N], [P, I] > [I, N], [P, I] > [I, N], [P, N] a [P, I], [N, N] > [N, N], [I, N] a [N, N], [P, N] 1 [P, I], [N, N] a [N, N], [N, N] > [N, N]]
+counterexample is a
+round 57
+[[N, N] a [N, N], [N, N] 1 [N, N], [N, N] > [N, N], [I, N] a [N, N], [N, N] a [N, N], [P, I] > [I, N], [P, I] > [I, N], init a [N, N], [N, N] > [N, N], [P, I] 1 [N, N], [N, N] > [N, N], init < [P, N], [P, I] a [N, N], [P, N] > [N, N], [P, N] a [P, I], [P, N] 1 [P, I], [N, N] > [N, N]]
+counterexample is a
+round 58
+[[N, N] 1 [N, N], [P, N] > [N, N], [P, I] a [N, N], init a [N, N], [P, N] a [P, I], [I, N] a [N, N], [N, N] > [N, N], [P, I] > [I, N], [N, N] > [N, N], [P, I] > [I, N], init < [P, N], [N, N] a [N, N], [P, N] 1 [P, I], [N, N] > [N, N], [N, N] > [N, N], [N, N] a [N, N], [P, I] 1 [N, N]]
+counterexample is a
+round 59
+[init a [N, N], [N, N] > [N, N], [P, I] > [I, N], [N, N] a [N, N], [P, N] > [N, N], [N, N] > [N, N], [P, I] 1 [N, N], [P, N] 1 [P, I], [P, N] a [P, I], init < [P, N], [I, N] a [N, N], [N, N] 1 [N, N], [N, N] a [N, N], [N, N] > [N, N], [N, N] > [N, N], [P, I] > [I, N], [P, I] a [N, N]]
+counterexample is a
+round 60
+[[P, N] 1 [P, I], [P, I] 1 [N, N], [P, I] > [I, N], init < [P, N], [N, N] a [N, N], init a [N, N], [N, N] > [N, N], [I, N] a [N, N], [P, I] a [N, N], [N, N] > [N, N], [P, N] > [N, N], [N, N] 1 [N, N], [N, N] > [N, N], [N, N] > [N, N], [P, N] a [P, I], [P, I] > [I, N], [N, N] a [N, N]]
+counterexample is a
+round 61
+[[P, N] > [N, N], [P, N] a [P, I], [I, N] a [N, N], [P, I] > [I, N], init < [P, N], [N, N] > [N, N], [N, N] a [N, N], [P, I] > [I, N], [N, N] 1 [N, N], [N, N] a [N, N], [P, I] a [N, N], [P, I] 1 [N, N], [N, N] > [N, N], init a [N, N], [P, N] 1 [P, I], [N, N] > [N, N], [N, N] > [N, N]]
+counterexample is a
+round 62
+[[P, N] > [N, N], [N, N] a [N, N], [N, N] > [N, N], [P, N] 1 [P, I], [I, N] a [N, N], [N, N] > [N, N], [P, I] 1 [N, N], [P, I] a [N, N], [P, I] > [I, N], [P, N] a [P, I], init a [N, N], [N, N] > [N, N], init < [P, N], [N, N] a [N, N], [N, N] 1 [N, N], [P, I] > [I, N], [N, N] > [N, N]]
+counterexample is a
+round 63
+[[P, N] > [N, N], init < [P, N], [P, N] 1 [P, I], [N, N] 1 [N, N], init a [N, N], [P, N] a [P, I], [P, I] 1 [N, N], [P, I] > [I, N], [N, N] > [N, N], [P, I] > [I, N], [I, N] a [N, N], [N, N] > [N, N], [N, N] a [N, N], [N, N] a [N, N], [P, I] a [N, N], [N, N] > [N, N], [N, N] > [N, N]]
+counterexample is a
+round 64
+[[N, N] > [N, N], [P, I] > [I, N], [N, N] a [N, N], [N, N] 1 [N, N], [P, I] 1 [N, N], [P, I] a [N, N], init < [P, N], [N, N] > [N, N], [N, N] > [N, N], [P, I] > [I, N], [N, N] a [N, N], [I, N] a [N, N], [P, N] a [P, I], init a [N, N], [N, N] > [N, N], [P, N] 1 [P, I], [P, N] > [N, N]]
+counterexample is a
+round 65
+[[P, I] a [N, N], [N, N] > [N, N], [P, I] > [I, N], [I, N] a [N, N], [P, N] 1 [P, I], init < [P, N], [P, I] 1 [N, N], [P, N] a [P, I], [N, N] > [N, N], [P, I] > [I, N], [N, N] 1 [N, N], [P, N] > [N, N], init a [N, N], [N, N] a [N, N], [N, N] a [N, N], [N, N] > [N, N], [N, N] > [N, N]]
+counterexample is a
+round 66
+[[N, N] > [N, N], [P, I] > [I, N], [P, N] 1 [P, I], [N, N] > [N, N], [P, I] 1 [N, N], init < [P, N], [N, N] a [N, N], [P, N] > [N, N], [P, I] a [N, N], [N, N] > [N, N], [N, N] a [N, N], [N, N] 1 [N, N], [I, N] a [N, N], [N, N] > [N, N], init a [N, N], [P, N] a [P, I], [P, I] > [I, N]]
+counterexample is a
+round 67
+[[N, N] > [N, N], [P, N] a [P, I], [P, I] 1 [N, N], init < [P, N], [I, N] a [N, N], [P, N] 1 [P, I], [P, I] > [I, N], [N, N] a [N, N], [N, N] > [N, N], init a [N, N], [P, N] > [N, N], [N, N] > [N, N], [N, N] 1 [N, N], [P, I] a [N, N], [P, I] > [I, N], [N, N] > [N, N], [N, N] a [N, N]]
+counterexample is a
+round 68
+[[N, N] > [N, N], [N, N] > [N, N], [P, I] > [I, N], [P, I] a [N, N], [N, N] > [N, N], init a [N, N], [P, N] > [N, N], [P, N] 1 [P, I], [P, I] 1 [N, N], [N, N] 1 [N, N], [N, N] a [N, N], [N, N] > [N, N], init < [P, N], [P, N] a [P, I], [N, N] a [N, N], [P, I] > [I, N], [I, N] a [N, N]]
+counterexample is a
+round 69
+[[P, I] a [N, N], init a [N, N], [P, N] a [P, I], [N, N] a [N, N], init < [P, N], [P, I] > [I, N], [P, I] > [I, N], [N, N] > [N, N], [N, N] 1 [N, N], [N, N] a [N, N], [N, N] > [N, N], [P, N] 1 [P, I], [P, I] 1 [N, N], [N, N] > [N, N], [P, N] > [N, N], [I, N] a [N, N], [N, N] > [N, N]]
+counterexample is a
+round 70
+[init a [N, N], [N, N] > [N, N], [P, N] 1 [P, I], [I, N] a [N, N], [P, N] a [P, I], [P, N] > [N, N], [N, N] 1 [N, N], [P, I] > [I, N], init < [P, N], [N, N] a [N, N], [P, I] a [N, N], [P, I] > [I, N], [N, N] > [N, N], [N, N] > [N, N], [P, I] 1 [N, N], [N, N] a [N, N], [N, N] > [N, N]]
+counterexample is a
+round 71
+[init a [N, N], [N, N] > [N, N], [N, N] > [N, N], [P, I] > [I, N], [P, N] 1 [P, I], [P, I] 1 [N, N], [N, N] 1 [N, N], [P, I] > [I, N], [P, N] > [N, N], [N, N] a [N, N], init < [P, N], [P, I] a [N, N], [N, N] > [N, N], [P, N] a [P, I], [I, N] a [N, N], [N, N] a [N, N], [N, N] > [N, N]]
+counterexample is a
+round 72
+[[I, N] a [N, N], init a [N, N], [N, N] > [N, N], [N, N] > [N, N], [N, N] > [N, N], [N, N] a [N, N], [N, N] a [N, N], init < [P, N], [N, N] > [N, N], [P, I] > [I, N], [P, I] > [I, N], [N, N] 1 [N, N], [P, I] a [N, N], [P, I] 1 [N, N], [P, N] 1 [P, I], [P, N] a [P, I], [P, N] > [N, N]]
+counterexample is a
+round 73
+[[N, N] 1 [N, N], init a [N, N], [P, I] a [N, N], init < [P, N], [P, I] > [I, N], [N, N] a [N, N], [P, N] > [N, N], [P, I] > [I, N], [P, I] 1 [N, N], [N, N] > [N, N], [N, N] > [N, N], [N, N] > [N, N], [N, N] a [N, N], [I, N] a [N, N], [P, N] 1 [P, I], [P, N] a [P, I], [N, N] > [N, N]]
+counterexample is a
+round 74
+[[N, N] a [N, N], init < [P, N], [N, N] > [N, N], [P, N] > [N, N], [I, N] a [N, N], [N, N] a [N, N], [P, I] a [N, N], [N, N] > [N, N], init a [N, N], [P, N] a [P, I], [N, N] > [N, N], [P, I] 1 [N, N], [P, N] 1 [P, I], [N, N] > [N, N], [N, N] 1 [N, N], [P, I] > [I, N], [P, I] > [I, N]]
+counterexample is a
+round 75
+[[P, I] > [I, N], [P, N] a [P, I], [N, N] > [N, N], [N, N] a [N, N], init < [P, N], [N, N] > [N, N], [P, N] 1 [P, I], [P, I] a [N, N], [N, N] > [N, N], init a [N, N], [N, N] > [N, N], [N, N] 1 [N, N], [N, N] a [N, N], [P, I] 1 [N, N], [I, N] a [N, N], [P, I] > [I, N], [P, N] > [N, N]]
+counterexample is a
+round 76
+[[N, N] a [N, N], [I, N] a [N, N], init < [P, N], [P, I] a [N, N], [P, I] > [I, N], [N, N] > [N, N], [N, N] > [N, N], init a [N, N], [P, N] 1 [P, I], [P, N] > [N, N], [P, I] 1 [N, N], [N, N] > [N, N], [N, N] 1 [N, N], [N, N] > [N, N], [P, N] a [P, I], [P, I] > [I, N], [N, N] a [N, N]]
+counterexample is a
+round 77
+[[N, N] 1 [N, N], [N, N] > [N, N], [P, I] 1 [N, N], init a [N, N], [P, I] > [I, N], [N, N] > [N, N], [P, I] a [N, N], init < [P, N], [N, N] a [N, N], [N, N] a [N, N], [P, N] 1 [P, I], [P, N] a [P, I], [P, I] > [I, N], [I, N] a [N, N], [N, N] > [N, N], [P, N] > [N, N], [N, N] > [N, N]]
+counterexample is a
+round 78
+[[N, N] a [N, N], [P, I] > [I, N], [P, N] > [N, N], [N, N] 1 [N, N], [P, N] 1 [P, I], [N, N] > [N, N], [N, N] a [N, N], [P, I] a [N, N], [I, N] a [N, N], [P, N] a [P, I], [N, N] > [N, N], init < [P, N], init a [N, N], [P, I] 1 [N, N], [P, I] > [I, N], [N, N] > [N, N], [N, N] > [N, N]]
+counterexample is a
+round 79
+[[P, I] a [N, N], [P, N] a [P, I], [P, I] > [I, N], [N, N] 1 [N, N], init < [P, N], [P, N] 1 [P, I], [P, N] > [N, N], [N, N] a [N, N], [P, I] 1 [N, N], [I, N] a [N, N], [P, I] > [I, N], [N, N] a [N, N], [N, N] > [N, N], [N, N] > [N, N], [N, N] > [N, N], [N, N] > [N, N], init a [N, N]]
+counterexample is a
+round 80
+[[N, N] > [N, N], init a [N, N], [N, N] > [N, N], [P, I] > [I, N], [N, N] > [N, N], [I, N] a [N, N], [N, N] a [N, N], [P, I] a [N, N], [P, I] 1 [N, N], [P, I] > [I, N], [P, N] > [N, N], [N, N] 1 [N, N], [P, N] 1 [P, I], init < [P, N], [N, N] a [N, N], [N, N] > [N, N], [P, N] a [P, I]]
+counterexample is a
+round 81
+[[P, N] > [N, N], [N, N] 1 [N, N], [P, N] a [P, I], [P, I] 1 [N, N], [N, N] > [N, N], [P, I] > [I, N], [P, N] 1 [P, I], [I, N] a [N, N], init < [P, N], [N, N] > [N, N], [P, I] a [N, N], [N, N] a [N, N], [N, N] > [N, N], init a [N, N], [N, N] a [N, N], [P, I] > [I, N], [N, N] > [N, N]]
+counterexample is a
+round 82
+[[N, N] a [N, N], [P, I] a [N, N], [N, N] a [N, N], [N, N] 1 [N, N], init < [P, N], [P, I] > [I, N], [P, I] 1 [N, N], [I, N] a [N, N], [N, N] > [N, N], [N, N] > [N, N], [P, N] a [P, I], [N, N] > [N, N], [N, N] > [N, N], init a [N, N], [P, N] > [N, N], [P, N] 1 [P, I], [P, I] > [I, N]]
+counterexample is a
+round 83
+[[I, N] a [N, N], [P, I] > [I, N], [N, N] > [N, N], init a [N, N], init < [P, N], [N, N] a [N, N], [P, I] 1 [N, N], [P, N] a [P, I], [P, N] > [N, N], [N, N] > [N, N], [P, I] a [N, N], [P, N] 1 [P, I], [N, N] a [N, N], [N, N] 1 [N, N], [P, I] > [I, N], [N, N] > [N, N], [N, N] > [N, N]]
+counterexample is a
+round 84
+[[N, N] 1 [N, N], [N, N] > [N, N], [P, I] > [I, N], [P, N] a [P, I], init a [N, N], init < [P, N], [N, N] a [N, N], [P, N] 1 [P, I], [N, N] > [N, N], [I, N] a [N, N], [P, N] > [N, N], [P, I] > [I, N], [N, N] a [N, N], [N, N] > [N, N], [N, N] > [N, N], [P, I] 1 [N, N], [P, I] a [N, N]]
+counterexample is a
+round 85
+[[N, N] > [N, N], [P, N] a [P, I], [N, N] > [N, N], [P, I] a [N, N], [N, N] a [N, N], init < [P, N], [P, N] > [N, N], [N, N] a [N, N], init a [N, N], [P, I] > [I, N], [N, N] 1 [N, N], [P, I] > [I, N], [N, N] > [N, N], [N, N] > [N, N], [P, I] 1 [N, N], [I, N] a [N, N], [P, N] 1 [P, I]]
+counterexample is a
+round 86
+[init a [N, N], [N, N] > [N, N], [N, N] 1 [N, N], [P, I] a [N, N], [P, N] a [P, I], [N, N] > [N, N], init < [P, N], [I, N] a [N, N], [N, N] a [N, N], [N, N] > [N, N], [P, I] 1 [N, N], [P, N] > [N, N], [P, I] > [I, N], [P, N] 1 [P, I], [N, N] a [N, N], [P, I] > [I, N], [N, N] > [N, N]]
+counterexample is a
+round 87
+[[N, N] 1 [N, N], init a [N, N], [N, N] > [N, N], [N, N] a [N, N], [N, N] > [N, N], [N, N] > [N, N], [P, I] > [I, N], [N, N] a [N, N], [P, I] > [I, N], [P, N] 1 [P, I], [P, I] a [N, N], init < [P, N], [I, N] a [N, N], [P, N] a [P, I], [P, I] 1 [N, N], [N, N] > [N, N], [P, N] > [N, N]]
+counterexample is a
+round 88
+[[P, N] a [P, I], init < [P, N], [N, N] a [N, N], [N, N] > [N, N], [P, I] 1 [N, N], [P, I] a [N, N], [N, N] > [N, N], [N, N] 1 [N, N], [P, I] > [I, N], [N, N] > [N, N], [I, N] a [N, N], init a [N, N], [P, I] > [I, N], [P, N] > [N, N], [N, N] a [N, N], [N, N] > [N, N], [P, N] 1 [P, I]]
+counterexample is a
+round 89
+[[P, I] > [I, N], [P, N] a [P, I], init a [N, N], [N, N] > [N, N], [N, N] 1 [N, N], [N, N] > [N, N], [P, I] a [N, N], [P, N] > [N, N], [P, N] 1 [P, I], init < [P, N], [N, N] > [N, N], [N, N] a [N, N], [N, N] a [N, N], [N, N] > [N, N], [I, N] a [N, N], [P, I] 1 [N, N], [P, I] > [I, N]]
+counterexample is a
+round 90
+[[P, I] 1 [N, N], [N, N] 1 [N, N], [N, N] > [N, N], [P, I] a [N, N], [P, I] > [I, N], init a [N, N], [P, N] 1 [P, I], [N, N] a [N, N], [P, I] > [I, N], [N, N] > [N, N], [P, N] a [P, I], init < [P, N], [N, N] > [N, N], [N, N] > [N, N], [I, N] a [N, N], [N, N] a [N, N], [P, N] > [N, N]]
+counterexample is a
+round 91
+[[N, N] a [N, N], init < [P, N], [I, N] a [N, N], [N, N] > [N, N], [P, I] 1 [N, N], [N, N] > [N, N], [N, N] > [N, N], [N, N] > [N, N], [N, N] 1 [N, N], [P, I] > [I, N], [N, N] a [N, N], init a [N, N], [P, N] a [P, I], [P, N] > [N, N], [P, N] 1 [P, I], [P, I] a [N, N], [P, I] > [I, N]]
+counterexample is a
+round 92
+[[P, N] > [N, N], [N, N] > [N, N], [N, N] a [N, N], [I, N] a [N, N], [P, I] > [I, N], init a [N, N], [P, N] 1 [P, I], [P, I] 1 [N, N], [N, N] a [N, N], [N, N] > [N, N], [N, N] > [N, N], [N, N] > [N, N], [P, I] > [I, N], [P, N] a [P, I], init < [P, N], [P, I] a [N, N], [N, N] 1 [N, N]]
+counterexample is a
+round 93
+[[N, N] > [N, N], [N, N] > [N, N], [N, N] a [N, N], [N, N] 1 [N, N], [P, I] > [I, N], [I, N] a [N, N], [P, N] > [N, N], [N, N] a [N, N], [P, I] > [I, N], [P, N] 1 [P, I], [N, N] > [N, N], init a [N, N], [N, N] > [N, N], init < [P, N], [P, I] 1 [N, N], [P, N] a [P, I], [P, I] a [N, N]]
+counterexample is a
+round 94
+[[N, N] > [N, N], [P, I] > [I, N], init < [P, N], [P, N] > [N, N], [N, N] > [N, N], [N, N] > [N, N], init a [N, N], [N, N] 1 [N, N], [P, N] 1 [P, I], [P, N] a [P, I], [P, I] > [I, N], [N, N] > [N, N], [P, I] 1 [N, N], [N, N] a [N, N], [P, I] a [N, N], [N, N] a [N, N], [I, N] a [N, N]]
+counterexample is a
+round 95
+[[I, N] a [N, N], [P, I] > [I, N], [P, N] > [N, N], [N, N] > [N, N], [P, I] a [N, N], [N, N] > [N, N], [P, I] > [I, N], init a [N, N], [P, N] 1 [P, I], [P, N] a [P, I], [N, N] a [N, N], [N, N] > [N, N], [N, N] > [N, N], [N, N] a [N, N], init < [P, N], [N, N] 1 [N, N], [P, I] 1 [N, N]]
+counterexample is a
+round 96
+[[I, N] a [N, N], [N, N] > [N, N], init a [N, N], [N, N] 1 [N, N], [P, I] 1 [N, N], [P, N] 1 [P, I], init < [P, N], [P, I] > [I, N], [N, N] > [N, N], [P, N] > [N, N], [N, N] > [N, N], [P, I] a [N, N], [P, N] a [P, I], [N, N] a [N, N], [N, N] a [N, N], [P, I] > [I, N], [N, N] > [N, N]]
+counterexample is a
+round 97
+[[N, N] a [N, N], [N, N] > [N, N], [I, N] a [N, N], [N, N] > [N, N], [P, N] > [N, N], init < [P, N], [P, I] a [N, N], [N, N] a [N, N], [P, I] 1 [N, N], [N, N] > [N, N], init a [N, N], [N, N] > [N, N], [P, N] a [P, I], [P, I] > [I, N], [P, I] > [I, N], [N, N] 1 [N, N], [P, N] 1 [P, I]]
+counterexample is a
+round 98
+[[P, N] a [P, I], [I, N] a [N, N], [P, I] a [N, N], [P, I] 1 [N, N], [P, N] > [N, N], init a [N, N], [N, N] a [N, N], [N, N] > [N, N], [N, N] > [N, N], [P, I] > [I, N], [P, I] > [I, N], [P, N] 1 [P, I], [N, N] a [N, N], [N, N] > [N, N], init < [P, N], [N, N] 1 [N, N], [N, N] > [N, N]]
+counterexample is a
+round 99
+[init < [P, N], [N, N] 1 [N, N], [P, I] > [I, N], [N, N] > [N, N], [I, N] a [N, N], [P, I] > [I, N], [N, N] > [N, N], [P, N] 1 [P, I], [N, N] a [N, N], [N, N] > [N, N], [P, I] a [N, N], init a [N, N], [P, N] a [P, I], [N, N] a [N, N], [P, I] 1 [N, N], [N, N] > [N, N], [P, N] > [N, N]]
+counterexample is a
+round 100
+[[N, N] > [N, N], [P, I] a [N, N], [P, N] a [P, I], [N, N] a [N, N], init < [P, N], [P, N] > [N, N], [P, I] > [I, N], [N, N] > [N, N], [P, I] 1 [N, N], [N, N] > [N, N], init a [N, N], [P, N] 1 [P, I], [N, N] > [N, N], [N, N] 1 [N, N], [I, N] a [N, N], [P, I] > [I, N], [N, N] a [N, N]]
+counterexample is a
+round 101
+[[N, N] 1 [N, N], [P, I] > [I, N], init < [P, N], [N, N] a [N, N], [N, N] > [N, N], [N, N] > [N, N], [N, N] a [N, N], [N, N] > [N, N], [P, I] 1 [N, N], [P, N] 1 [P, I], [P, I] > [I, N], [N, N] > [N, N], init a [N, N], [I, N] a [N, N], [P, N] > [N, N], [P, I] a [N, N], [P, N] a [P, I]]
+counterexample is a
+stop by force

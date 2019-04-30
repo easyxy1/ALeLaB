@@ -23,14 +23,14 @@ public class Automaton {
 	private Set<State> states;
 	private State initState=new State("init");
 	private Set<State> finalState;
-	private int totallevel=0;
+	private int totalLevel=0;
 	public Pattern pattern;
 	//finite alphabet, may contain "<, >"
 	private Set<String> alphabet;
-	private Set<String> freshname;
+	private Set<String> freshName;
 	private Set<Transition> transitions;
 	
-	private boolean iswhole=true;
+	private boolean isWhole=true;
 	private static int totalID=1;
 	private List<State> sinkstates=new ArrayList<State>();
 
@@ -42,7 +42,7 @@ public class Automaton {
 //		this.states.add(initState);
 		this.alphabet=new HashSet<>();
 		this.finalState=new HashSet();
-		this.freshname=new HashSet();
+		this.freshName=new HashSet();
 		this.transitions=new HashSet();
 	}
 
@@ -51,9 +51,9 @@ public class Automaton {
 		this.initState=new State("init");
 		this.finalState.clear();
 		this.states.clear();
-		this.freshname.clear();
+		this.freshName.clear();
 		this.transitions.clear();
-		this.totallevel=0;
+		this.totalLevel=0;
 	}
 	
 	//set initial state of the automaton
@@ -86,18 +86,18 @@ public class Automaton {
 
 	public Set<String> getfreshname() {
 		// TODO Auto-generated method stub
-		return this.freshname;
+		return this.freshName;
 	}
 	protected void addfreshname(String s) {
 		// TODO Auto-generated method stub
 		if(Pattern.matches("^[0-9]*$", s))
-			this.freshname.add(s);
+			this.freshName.add(s);
 		
 	}
 	protected void addfreshname(Set l) {
 		// TODO Auto-generated method stub
 	
-			this.freshname.addAll(l);
+			this.freshName.addAll(l);
 		
 	}
 //add one transition
@@ -157,14 +157,15 @@ public class Automaton {
 	}
 
 	public void setTotalLevel(){
-		for(String n:this.freshname){
-			this.totallevel=Math.max(totallevel, Integer.parseInt(n));
+		for(String n:this.freshName){
+			this.totalLevel=Math.max(totalLevel, Integer.parseInt(n));
 		}
 	
 	}
 	
 	public int getTotalLevel(){
-		return this.totallevel;
+		this.totalLevel=this.freshName.size();
+		return this.totalLevel;
 	}
 	public Set<State> getAllstates(){
 		
@@ -282,7 +283,7 @@ public class Automaton {
 	}
 
 	public void printAutomaton(){
-		for(int i=0;i<=this.totallevel;i++){
+		for(int i=0;i<=this.totalLevel;i++){
 			System.out.println(i);
 			for(State s: this.states){
 				if(s.getLevel()==i){
@@ -343,13 +344,13 @@ public class Automaton {
 	 * 
 	 * output string data for dot visualisation 
 	 */
-	public String tostringforDot(){
+	public String toStringforDot(){
 		String layerset="0";
 		
 		//initialise list for storing level information
 		List<String> dividedstatesset=new ArrayList<String>();
 		this.setTotalLevel();
-		for(int i=0;i<this.totallevel+1;i++){
+		for(int i=0;i<this.totalLevel+1;i++){
 			dividedstatesset.add("{rank = same;");
 			if(i>0)
 				layerset=layerset+":"+i;
@@ -419,7 +420,7 @@ public class Automaton {
 	 * output automata as pdf 
 	 */
 	public void visualisation(){
-		Graphviz.createDotGraph(this.tostringforDot(), this.getClass().getName());
+		Graphviz.createDotGraph(this.toStringforDot(), this.getClass().getName());
 	}
 	
 	public String getAllFinalstatesNames() {
@@ -449,7 +450,7 @@ public class Automaton {
 		
 		String localprefix=prefix;
 		if(length==0 ){
-			if(s.getFinal() && Word.legal(localprefix)){
+			if(s.getFinal() && Word.isLegal(localprefix)){
 				
 				wordlist.add(localprefix);
 			}
@@ -482,19 +483,19 @@ public class Automaton {
 		for(State st:this.states){
 			for(String s: this.alphabet	){
 				if(st.nextState(s)==null){
-					this.iswhole=false;
-					return this.iswhole;
+					this.isWhole=false;
+					return this.isWhole;
 				
 				}
 			}
 		}
-		return this.iswhole;
+		return this.isWhole;
 	}
 	
 	//expand transitions
 	public void expandtransitons(){
 		if(!this.iswholeTransitions()){
-		for(int i=0;i<=this.totallevel;i++){
+		for(int i=0;i<=this.totalLevel;i++){
 			State sinkstate=new State("ss"+i);
 			sinkstate.setLevel(i);
 			sinkstate.setselfall(this.alphabet,i);
@@ -520,7 +521,7 @@ public class Automaton {
 			}
 			
 			if(st.nextState("<")==null){
-				if(st.getLevel()<this.totallevel){
+				if(st.getLevel()<this.totalLevel){
 						State next=this.sinkstates.get(st.getLevel()+1);
 						Transition t=new Transition(st,next, "<");
 						st.setTransition(t);
@@ -548,7 +549,7 @@ public class Automaton {
 			if(st!=null){
 			
 				if(st.nextState("<")==null){
-					if(st.getLevel()<this.totallevel){
+					if(st.getLevel()<this.totalLevel){
 						State next=this.sinkstates.get(st.getLevel()+1);
 						Transition t=new Transition(st,next, "<");
 						st.setTransition(t);

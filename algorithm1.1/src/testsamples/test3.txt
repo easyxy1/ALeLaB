@@ -1,0 +1,5 @@
+final init
+init a init
+init b 1
+1 a 1
+1 b 1

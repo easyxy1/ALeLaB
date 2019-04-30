@@ -30,7 +30,7 @@ public class BuildAutomatonTest {
 	@Before
 	public void setup(){
 		alphabet.add("a");
-		//alphabet.add("b");
+		alphabet.add("b");
 	}
 	
 	@Ignore
@@ -53,13 +53,13 @@ public class BuildAutomatonTest {
 
 		System.out.println(test.getAllstatasname());
 		System.out.println(test.getAllstates().toString());
-		Graphviz.createDotGraph(test.tostringforDot(), "outputname");
+		Graphviz.createDotGraph(test.toStringforDot(), "outputname");
 		//test.expandtransitons();
 		//Graphviz.createDotGraph(test.tostringforDot(), "expanded");
 	}//passed on input partial automata and output completed dfa 20180830
 	
 	//test on create automata from regular expresstions
-	@Test
+	@Ignore
 	public void test1() {
 		File file=new File("testNFAep.txt");
 		BuildAutomaton test=new BuildAutomaton(file,alphabet);
@@ -71,13 +71,14 @@ public class BuildAutomatonTest {
 		for(State s:test.getAllstates()){
 			System.out.println("state "+s.getname()+"\tlevel\t"+s.getLevel()+"\t transition\t"+s.getTransitions().size());
 		}
-		Graphviz.createDotGraph(test.tostringforDot(), "outputname");
+		Graphviz.createDotGraph(test.toStringforDot(), "outputname");
 		
 	}
-	@Test
+	@Ignore
 	public void test2() {
 		File file=new File("testsamples/1.txt");
-		BuildAutomaton test=new BuildAutomaton(file,alphabet);
+		BuildAutomaton test=new BuildAutomaton("",alphabet);
+	
 		//test.gettransitons();
 		System.out.println("states: "+test.getAllstates().size());
 		System.out.println("Transitions: "+test.getAllTransitions().size());
@@ -86,7 +87,17 @@ public class BuildAutomatonTest {
 		for(State s:test.getAllstates()){
 			System.out.println("state "+s.getname()+"\tlevel\t"+s.getLevel()+"\t transition\t"+s.getTransitions().size());
 		}
-		Graphviz.createDotGraph(test.tostringforDot(), "outputname");
+		Graphviz.createDotGraph(test.toStringforDot(), "outputname");
+		
+	}
+	@Test
+	public void test3() {
+		
+		//BuildAutomaton test=new BuildAutomaton("a+b",alphabet);
+		Teacher teacher1=new Teacher(false,alphabet,Strategy.HORIZONTAL,"a+b+<1>");
+		//test.printAutomaton();
+		//test.gettransitons();
+		teacher1.getAutomaton().visualisation();
 		
 	}
 }

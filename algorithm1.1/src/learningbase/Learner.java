@@ -18,18 +18,21 @@ import java.util.regex.Pattern;
 
 import nAutomata.Automaton;
 import nAutomata.Operators;
+import nAutomata.State;
 import reTodfa.Graphviz;
+import word.Word;
 
-public class LearningProcess {
+public class Learner {
 	//private static TableSet tableSet;
 	
 	private static Set<String> alphabet=new HashSet();
 	private static String teachercolumn="\t\t\t\t\t\t\t\t";
 	private Automaton aLearner= new Automaton();
 	private int round=1;
+	private int numberofMQ=0;
 	private int closedrounds=0;
 	private int consistentrounds=0;
-	
+	private Teacher teacher=null;
 	public static void main(String[] arg) throws IOException {
 		
 	}
@@ -39,23 +42,27 @@ public class LearningProcess {
 	 * @param teacher
 	 * @throws IOException 
 	 */
-	public LearningProcess(Teacher teacher) throws IOException{
+	public Learner(Teacher teacher) throws IOException{
+		this.teacher=teacher;
 		aLearner.clear();
 		//learner starts learning
 		round=1;
-		alphabet=teacher.getalphabet();
-		Table learner=new Table();
-		learner.setAlphabet(alphabet);
-		learner.setLongPrefix();
-		//ask membership queries
-		learner.processMembershipQueriesForTables(learner.getShortPrefixLabels());
-		learner.processMembershipQueriesForTables(learner.getLongPrefixLabels());
-		
+		alphabet=teacher.getAlphabet();
+		Table nOTable=new Table();
+		nOTable.setAlphabet(alphabet);
+		nOTable.setLongPrefix();
+		//nOTable.printTable();
+		//ask membership queries through table's method
+		//learner.processMembershipQueriesForTables(learner.getShortPrefixLabels());
+		//learner.processMembershipQueriesForTables(learner.getLongPrefixLabels());
+		//ask membership queries through own method
+		processMembershipQueriesForTables(nOTable,teacher);
+		//nOTable.printTable();
 		// check and make sure table closed and consistent
-		makeTableClosedAndConsistent(learner);
+		makeTableClosedAndConsistent(nOTable);
 		//build an automaton with the closed  and consistent table
 		//Automaton aLearner= new BuildAutomaton(learner);
-		aLearner= new BuildAutomaton(learner);
+		aLearner= new BuildAutomaton(nOTable);
 		//print table to console
 		//learner.printTable();
 		
@@ -63,7 +70,7 @@ public class LearningProcess {
 		String counterexample=teacher.checkAutomaton(aLearner);
 		// Learner use the resule of the equivalence query. If there is a counter example, extends the table with the couterexample and modifies a new equivalence query. If not, terminates.
 		while (counterexample!=null) {
-			System.out.println("counterexample:"+counterexample);
+			//System.out.println("counterexample:"+counterexample);
 			//a new round starts
 			round++;
 			//control the max running times
@@ -74,7 +81,8 @@ public class LearningProcess {
 			
 			//use counterexample to extend table
 			try {
-				learner.extendByCE(counterexample);
+				nOTable.extendByCE(counterexample);
+				processMembershipQueriesForTables(nOTable,teacher);
 			}catch (Exception e) {  
 				System.out.println("Exception in "+e.getMessage()+"\r\n");
 						
@@ -82,7 +90,7 @@ public class LearningProcess {
 			
 			//make table closed and consistent
 			try {
-				makeTableClosedAndConsistent(learner);
+				makeTableClosedAndConsistent(nOTable);
 			}catch (Exception e) {  
 				System.out.println("Exception in "+e.getMessage()+"\r\n");
 			} 
@@ -90,7 +98,7 @@ public class LearningProcess {
 			//learner.printTable();
 			
 			try {
-				aLearner= new BuildAutomaton(learner);
+				aLearner= new BuildAutomaton(nOTable);
 			}catch (Exception e) {  	
 				System.out.println("Exception in "+e.getMessage()+"\r\n");
 			} 
@@ -101,14 +109,42 @@ public class LearningProcess {
 		
 		String finish="Finished.\n ";
 		if(counterexample==null)
-			Graphviz.createDotGraph(this.getLearnerAutomaton().tostringforDot(), "example");
+			Graphviz.createDotGraph(this.getLearnerAutomaton().toStringforDot(), "example");
 		finish+="The learner got an automaton accepted the Teacher's language";
 		//algorithm terminates
-		System.out.println(finish);
+	//	System.out.println(finish);
 				
 		
 	}
-	
+	/**
+	 * When new states are added to the observation table, this method fills the table values. For each
+	 * given state it sends one membership query for each specified suffix symbol to the oracle of the
+	 * form (state,symbol).
+	 *
+	 * @param nOTable
+	 * 		.
+	 * @param teacher
+	 * 		.
+	 * @throws IOException 
+	 */
+	private void processMembershipQueriesForTables(Table nOTable,Teacher teacher) throws IOException{
+		Collection<String> states= nOTable.getShortPrefixLabels();
+		states.addAll(nOTable.getLongPrefixLabels());
+		Collection<String> suffixes=nOTable.getSuffixes();
+		List<DefaultQuery> queries = new ArrayList<>(states.size());
+		for (String prefix : states) {
+			for (String suffix : suffixes) {
+				//queries.add(new DefaultQuery(prefix, suffix));
+				String word=prefix+suffix;
+				if(Word.isLegal(word)){
+					//query.answer(Teacher.getanswer(word));// language input sotluion 1
+					nOTable.addResult(prefix, suffix, teacher.getAnswer(word));
+					this.numberofMQ++;
+				}else
+					nOTable.addResult(prefix, suffix,State.Type.INVALID);
+			}
+		}
+	}
 	private void makeTableClosedAndConsistent(Table table) throws IOException {
 		// TODO Auto-generated method stub
 		boolean closedAndConsistent = false;
@@ -156,11 +192,12 @@ public class LearningProcess {
 	//	System.out.println("test: "+t.getSuffixes());
 		
 		
-		t.processMembershipQueriesForTables(t.getShortPrefixLabels());
-	//	System.out.println("test in ensureConsistency: add short prefix...");// test for over repeat
-		t.processMembershipQueriesForTables(t.getLongPrefixLabels());
-	//	System.out.println("test in ensureConsistency: add long prefix...");// test for over repeat
+		//t.processMembershipQueriesForTables(t.getShortPrefixLabels());
 		
+	//	System.out.println("test in ensureConsistency: add short prefix...");// test for over repeat
+		//t.processMembershipQueriesForTables(t.getLongPrefixLabels());
+	//	System.out.println("test in ensureConsistency: add long prefix...");// test for over repeat
+		processMembershipQueriesForTables(t,this.teacher);
 		return t;
 				
 		
@@ -177,19 +214,24 @@ public class LearningProcess {
 			////remove the row from SA, which its label exists in S 
 			t.removeShortPrefixesFromLongPrefixes();
 			//fill the result for new row
-			t.processMembershipQueriesForTables(t.getLongPrefixLabels());
+			//t.processMembershipQueriesForTables(t.getLongPrefixLabels());
 			//System.out.println("Test on closetable add long prefix...");// test for over repeat
-			
+			processMembershipQueriesForTables(t,this.teacher);
 			//candidate = t.findUnclosedState();
 		//}
 		return t;
 	}
+	
 	public Automaton getLearnerAutomaton(){
 		return this.aLearner;
 	}
 	
 	public int getround(){
 		return this.round;
+	}
+	
+	public int getnumberofMQ(){
+		return this.numberofMQ;
 	}
 	public int getclosedrounds(){
 		return this.closedrounds;

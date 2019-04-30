@@ -18,6 +18,7 @@ import learningbase.Teacher;
 import learningbase.Teacher.Strategy;
 import nAutomata.Automaton;
 import nAutomata.State;
+import nAutomata.State.Type;
 import nAutomata.Transition;
 import reTodfa.Graphviz;
 
@@ -30,11 +31,8 @@ public class teacherAUTTest {
 	public void setUp() throws Exception {
 		alphabet.add("a");
 		alphabet.add("b");
-		//alphabet.add("c");
-	
-//		
-//		String testRE="a<1>";
-//		teacher1=new Teacher_3("2",alphabet,1,testRE);
+		String testRE="a<1>";
+		//teacher1=new Teacher(Teacher.FromRE,alphabet,Strategy.HORIZONTAL,testRE);
 		
 	}
 	
@@ -46,7 +44,7 @@ public class teacherAUTTest {
 		 * 20180925 comments: (a+ab)* build successfully. (a+<a>b)* build successfully.
 		 */
 		//String testRE="(a(a+(a(c)b))b)";
-		String testRE="<a+<1>>";
+		String testRE="a<1+a*b<2>>";
 		Teacher teacher1=new Teacher(Teacher.FromRE,alphabet,Strategy.HORIZONTAL,testRE);
 		
 		Automaton a =teacher1.getAutomaton();
@@ -57,7 +55,7 @@ public class teacherAUTTest {
 		a.visualisation();
 
 	}
-	@Test
+	@Ignore
 	public void testbuildfromFile() {
 		
 		String folderpath= "testsamples";
@@ -76,12 +74,12 @@ public class teacherAUTTest {
 		Automaton a =teacher3.getAutomaton();
 		
 		System.out.println("total level is "+a.getTotalLevel());
-		System.out.println(a.tostringforDot());
+		System.out.println(a.toStringforDot());
 		a.visualisation();
 
 	}
 	
-	@Test
+	@Ignore
 	public void testacceptedwordlist() {
 		Set<String> wordlist=new HashSet<String>();
 		String testRE="a+b*+<1>";
@@ -120,5 +118,17 @@ public class teacherAUTTest {
 		System.out.println(ce1);
 		
 	}
+	@Ignore
+	public void testgetAnswer() {
+		String word="";
+		assertEquals(State.Type.FINAL,teacher1.getAnswer(word));
 
+	}
+	@Test
+	public void testcheckAutomaton() {
+		String testlanguage="a";
+		Automaton  automaton=new BuildAutomaton(testlanguage,alphabet);
+		assertEquals(null,teacher1.checkAutomaton(automaton));
+
+	}
 }
