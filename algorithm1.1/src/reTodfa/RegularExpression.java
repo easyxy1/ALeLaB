@@ -71,8 +71,10 @@ public class RegularExpression {
 		
 			
 		// Generate regular expression with the concatenation
+		regular = FormulaBinders(regular);
+		System.out.println(regular);
 		regular = AddConcat (regular);
-		//System.out.println(regular);
+		System.out.println(regular);
 		
 		//initialise layer information
 		int currentlevel=0;
@@ -151,6 +153,21 @@ public class RegularExpression {
 		
 		// return the nfa
 		return completeNfa;
+	}
+
+	private static String FormulaBinders(String regular) {
+		// TODO Auto-generated method stub
+		String newRegular = new String ("");
+		CharSequence allocateBinder="<";
+		CharSequence deallocateBinder=">";
+		if(regular.contains(allocateBinder)){
+		newRegular = regular.replaceAll("<", "(<.(");
+		}
+		if(regular.contains(deallocateBinder)){
+		newRegular = newRegular.replaceAll(">", ").>)");
+		}
+		
+		return newRegular;
 	}
 
 	// Priority of operands
@@ -294,6 +311,7 @@ public class RegularExpression {
 
 	// add "." when is concatenation between to symbols that
 	// concatenates to each other
+	/**
 	private static String AddConcat(String regular) {
 		String newRegular = new String ("");
 
@@ -358,7 +376,38 @@ public class RegularExpression {
 			newRegular += ')';
 		return newRegular;
 	}
+**/
+	private static String AddConcat(String regular) {
+		String newRegular = new String ("");
 
+		for (int i = 0; i < regular.length() - 1; i++) {
+			if ( isInputCharacter(String.valueOf(regular.charAt(i)))  && isInputCharacter(String.valueOf(regular.charAt(i+1))) ) {
+				newRegular += regular.charAt(i) + ".";
+				
+			} else if ( isInputCharacter(String.valueOf(regular.charAt(i))) && regular.charAt(i+1) == '(' ) {
+				newRegular += regular.charAt(i) + ".";
+				
+			} else if ( regular.charAt(i) == ')' && isInputCharacter(String.valueOf(regular.charAt(i+1))) ) {
+				newRegular += regular.charAt(i) + ".";
+				
+			} else if (regular.charAt(i) == '*'  && isInputCharacter(String.valueOf(regular.charAt(i+1))) ) {
+				newRegular += regular.charAt(i) + ".";
+				
+			} else if ( regular.charAt(i) == '*' && regular.charAt(i+1) == '(' ) {
+				newRegular += regular.charAt(i) + ".";
+				
+			} else if ( regular.charAt(i) == ')' && regular.charAt(i+1) == '(') {
+				newRegular += regular.charAt(i) + ".";			
+				
+			} else {
+				newRegular += regular.charAt(i);
+			}
+		}
+		newRegular += regular.charAt(regular.length() - 1);
+		return newRegular;
+	}
+	
+	
 	// Return true if is part of the automata Language else is false
 	private static boolean isInputCharacter(String charAt) {
 		if (input.contains(charAt))	return true;
