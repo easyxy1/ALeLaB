@@ -10,8 +10,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import org.junit.Before;
-import org.junit.Ignore;
+import org.junit.*;
 import org.junit.Test;
 
 import learningbase.Learner;
@@ -36,17 +35,13 @@ public class LearningProcessTest {
 	public void setup(){
 		alphabet.add("a");
 		alphabet.add("b");
-		finitalphabet.add("a");
-		finitalphabet.add("b");
-		finitalphabet.add("c");
-		finitalphabet.add("d");
-		finitalphabet.add("e");
-		finitalphabet.add("f");
-		finitalphabet.add("g");
-		finitalphabet.add("h");
-		finitalphabet.add("i");
-		finitalphabet.add("j");
-		finitalphabet.add("k");
+		alphabet.add("c");
+		alphabet.add("d");
+		alphabet.add("e");
+		alphabet.add("f");
+		alphabet.add("g");
+		alphabet.add("h");
+		alphabet.add("i");
 		if (!file.exists()) {  
 	       try {
 			file.createNewFile();
@@ -116,7 +111,7 @@ public class LearningProcessTest {
 				//System.out.println(test1.getLearnerAutomaton().tostringforDot());
 				String outputname="learner"+String.valueOf(testcount)+"via1";
 				Graphviz.createDotGraph(test1.getLearnerAutomaton().toStringforDot(), outputname);
-				
+				Graphviz.createDotGraph(test1.getLearnerAutomaton().simplityToStringforDot(), outputname+"NFA");
 				//test records
 				String processroundrecord="Main loop runs "+test1.getround()+" rounds.\r\n";
 				
@@ -133,7 +128,7 @@ public class LearningProcessTest {
 //   			fileWriterCSV.write(recordforcsv);
 //    			fileWriterCSV.close();// close filewriter for csv
 				
-    			System.out.println("one recorded.");
+    			System.out.println("one recorded.\n"+recordforcsv);
 				
 			} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -235,10 +230,11 @@ public class LearningProcessTest {
 		}//visualisation pass but not perfect, and content pass 
 	
 //test input a file with visualisation of learner's automaton via counterexample strategy HORIZONTAL
-	@Ignore
+	@Test
 	public void test2(){
-		String testpath="testsamples/1.txt";
-		Teacher teacher1=new Teacher(Teacher.Fromfile,alphabet,Strategy.HORIZONTAL,testpath);
+		String testpath="concreteExample.txt";
+		Teacher teacher1=new Teacher(Teacher.Fromfile,alphabet,Strategy.None,testpath);
+		Graphviz.createDotGraph(teacher1.getAutomaton().simplityToStringforDot(), "teacher"+testcount+"via1");
 		runningrecord(teacher1);
 		testcount++;
 	}

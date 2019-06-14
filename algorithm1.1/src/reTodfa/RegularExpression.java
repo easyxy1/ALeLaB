@@ -158,13 +158,14 @@ public class RegularExpression {
 	private static String FormulaBinders(String regular) {
 		// TODO Auto-generated method stub
 		String newRegular = new String ("");
+		newRegular = regular;
 		CharSequence allocateBinder="<";
 		CharSequence deallocateBinder=">";
 		if(regular.contains(allocateBinder)){
-		newRegular = regular.replaceAll("<", "(<.(");
+			newRegular = newRegular.replaceAll("<", "(<.(");
 		}
 		if(regular.contains(deallocateBinder)){
-		newRegular = newRegular.replaceAll(">", ").>)");
+			newRegular = newRegular.replaceAll(">", ").>)");
 		}
 		
 		return newRegular;

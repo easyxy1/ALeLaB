@@ -39,7 +39,7 @@ public class Teacher {
 	private Strategy strategy=Strategy.VERTICAL;
 	private int totalLevel=0;
 	private String testCounterexampleRecording="";
-	public enum Strategy{VERTICAL, HORIZONTAL, MIX}
+	public enum Strategy{VERTICAL, HORIZONTAL, MIX, None}
 	public final static boolean Fromfile=true;
 	public final static boolean FromRE=false;
 	
@@ -141,22 +141,22 @@ public class Teacher {
 	}
 	
 	//functionality methods
-	public Type getAnswer(String word){
+	public String getAnswer(String word){
 		answeredMQ++;
 		word=Word.deleteLambda(word);
 		State s= teacherAutomaton.getStateBypath(word);
 		if(s!=null){
 			if(s.getFinal()){
-				return State.Type.FINAL;
+				return State.FINAL;
 			}else{
 				/* this method had infinite loop in some deterministic nominal automata */
 				  if(Operators.getAcceptedSuffix1(teacherAutomaton, word)!=null){
-					return State.Type.PREFIX;
+					return State.PREFIX;
 				  }else
-					return State.Type.SINK;	
+					return State.NO;	
 			}
 		}else
-			return State.Type.SINK;
+			return State.NO;
 	
 	}
 	
@@ -195,25 +195,32 @@ public class Teacher {
 //				maxLength=Math.min(teacherLength, learnerLength);
 //			else
 				maxLength=Math.max(teacherLength, learnerLength);
-			int counterexampleLength=learnerLength;
+			int counterexampleLength=learnerLength/2;
 			//System.out.println("teacher has "+teacher.getAllstates().size());
 			
 			Set<String> availableCEset= new HashSet<String>();
-			counterexample=selectCE(learner,counterexampleLength,maxLength);
-			//version: manage following code to the method selecteCE
-//			if(learner.getAllFinalstates().isEmpty() && teacher.getAllFinalstates().isEmpty()){
-//				counterexample=null;
-//			}else{ //find out all words of the length of teacher automaton's states' quantity 
-//					//while(availableCEset.isEmpty() && counterexampleLength<maxLength){
-//					while( counterexampleLength<maxLength){
-//						availableCEset.addAll(Operators.getAvailableCEset(teacher, learner, counterexampleLength));
-//						//remove all the selected counterexample, then the result is the set of available counterexamples for this turn.
-//						//availableCEset.removeAll(selectedcounterexample);
-//						counterexampleLength++;
-//					}
-//					
-//			
-//			}
+			
+			if(this.strategy!=Strategy.None)
+				counterexample=selectCE(learner,counterexampleLength,maxLength);
+			else{
+				
+					//version: manage following code to the method selecteCE
+					if(learner.getAllFinalstates().isEmpty() && teacher.getAllFinalstates().isEmpty()){
+						counterexample=null;
+					}else{ //find out all words of the length of teacher automaton's states' quantity 
+					//while(availableCEset.isEmpty() && counterexampleLength<maxLength){
+						while( counterexampleLength<maxLength*2 && availableCEset.isEmpty()){
+							availableCEset.addAll(Operators.getAvailableCEset(teacher, learner, counterexampleLength));
+							//remove all the selected counterexample, then the result is the set of available counterexamples for this turn.
+							availableCEset.removeAll(selectedCounterexample);
+							counterexampleLength++;
+							System.out.println("now select counterexample with "+counterexampleLength+"length");
+						}
+						counterexample=availableCEset.iterator().next();
+	
+			
+					}
+			}
 //			//System.out.println("availableCEset is empty?"+availableCEset);
 //			this.testCounterexampleRecording=testCounterexampleRecording+"\n equivalence query round "+this.equivalentRound;
 //			if(!availableCEset.isEmpty()){

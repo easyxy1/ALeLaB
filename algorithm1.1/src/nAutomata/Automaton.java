@@ -416,6 +416,68 @@ public class Automaton {
 	
 	}
 	
+	public String simplityToStringforDot(){
+		String layerset="0";
+		
+		//initialise list for storing level information
+		List<String> dividedstatesset=new ArrayList<String>();
+		this.setTotalLevel();
+		for(int i=0;i<this.totalLevel+1;i++){
+			dividedstatesset.add("{rank = same;");
+			if(i>0)
+				layerset=layerset+":"+i;
+		}
+		boolean hasnormalstates=false;
+		for(State s: this.states){
+			if(s.getType()!=Type.SINK){
+				 String temp=dividedstatesset.get(s.getLevel());
+		    	 temp=temp+s.getID()+";";
+		    	 dividedstatesset.set(s.getLevel(), temp);
+		    	 hasnormalstates=true;
+			}
+	    	
+		}
+		//rank all states
+		String lineforrankstate="";
+		for(String s:dividedstatesset){
+			lineforrankstate=lineforrankstate+s+"}\r\n";
+		}
+		
+		String lineforfinalstates="";
+		String linefornormalstateshead="node [shape = circle,layer=";
+		String linefornormalstates="";
+	    String transitions="";
+		
+	    //figure out final states 
+		List<String> finallist=new ArrayList<String>();
+		for(State s:this.finalState){
+			finallist.add(s.getname());
+			//lineforfinalstates=lineforfinalstates+s.getname()+";";
+			lineforfinalstates=lineforfinalstates+s.getID()+"[shape = doublecircle,layer=\"0\"];\r\n";
+		}
+		//nodes for finalstates are made
+		//lineforfinalstates=lineforfinalstates+"}";
+		
+		String temp="";
+	
+		
+		for(State s :this.getAllstates()){
+			if(!s.getFinal()){
+				linefornormalstates=linefornormalstates+s.getID()+"[shape = circle,layer=\""+s.getLevel()+"\"];\r\n";
+			}
+			for(Transition t:s.getTransitions()){
+				if(t.getNext().getType()!=Type.SINK){
+					String line=t.getPrevious().getID()+"\t->\t"+t.getNext().getID()+"\t[label=\""+t.getSymbol()+"\"];\r\n";
+					transitions=transitions+line;
+				}
+			}
+		}
+		
+	     String sum=lineforfinalstates+linefornormalstates+lineforrankstate+"\r\n"+transitions;
+	     return sum;
+	
+	}
+
 	/*
 	 * output automata as pdf 
 	 */
@@ -458,11 +520,14 @@ public class Automaton {
 			//System.out.println("state's transitions size:"+s.getTransitions().size());
 			for(Transition t: s.getTransitions()){
 				//version before 201181019: recursion 
-				
+				/**2019061
+				 * try: never go to State.No
+				 */
+				if(t.getNext().getType()!=State.Type.SINK){
 					prefix=prefix+t.getSymbol();
 					acceptedPaths(t.getNext(),prefix,wordlist,length-1);
 					prefix=localprefix;
-				
+				}
 			//version created 20181019
 				
 //					localprefix=localprefix+t.getSymbol();
@@ -499,6 +564,7 @@ public class Automaton {
 			State sinkstate=new State("ss"+i);
 			sinkstate.setLevel(i);
 			sinkstate.setselfall(this.alphabet,i);
+			sinkstate.settype(Type.SINK);
 			this.sinkstates.add(i, sinkstate);
 		}
 		for(State st:this.states){

@@ -317,7 +317,7 @@ public class Table {
 		}
 
 		//Add the result of a membership query to this table
-		void addResult(String prefix, String suffix, Type result) {
+		void addResult(String prefix, String suffix, String string) {
 			if (!setE.contains(suffix)) {
 				throw new IllegalArgumentException("Suffix '" + suffix + "' is not part of the suffixes set");
 			}
@@ -325,19 +325,19 @@ public class Table {
 			final int suffixPosition = setE.indexOf(suffix);
 			Row row = getRowForPrefix(prefix);
 
-			addResultToRow(result, suffixPosition, row);
+			addResultToRow(string, suffixPosition, row);
 		}
 
-		private void addResultToRow(Type result, int suffixPosition, Row row) {
-			final List<Type> values = row.getContents();
+		private void addResultToRow(String string, int suffixPosition, Row row) {
+			final List<String> values = row.getContents();
 			if (values.size() > suffixPosition) {
-				if (!values.get(suffixPosition).equals(result)) {
+				if (!values.get(suffixPosition).equals(string)) {
 					throw new IllegalStateException(
-							"New result " + values.get(suffixPosition) + " differs from old result " + result);
+							"New result " + values.get(suffixPosition) + " differs from old result " + string);
 				}
 			}
 			else {
-				row.addValue(result);
+				row.addValue(string);
 			}
 		}
 		
@@ -682,12 +682,12 @@ public class Table {
 			}else if(secondRow==null){
 				return "";
 			}else{
-				final List<Type> firstRowContents = firstRow.getContents();
-				final List<Type> secondRowContents = secondRow.getContents();
+				final List<String> firstRowContents = firstRow.getContents();
+				final List<String> secondRowContents = secondRow.getContents();
 
 				for (int i = 0; i < firstRow.getContents().size(); i++) {
-					Type symbolFirstRow = firstRowContents.get(i);
-					Type symbolSecondRow = secondRowContents.get(i);
+					String symbolFirstRow = firstRowContents.get(i);
+					String symbolSecondRow = secondRowContents.get(i);
 					if (!symbolFirstRow.equals(symbolSecondRow)) {
 						return setE.get(i);
 					}

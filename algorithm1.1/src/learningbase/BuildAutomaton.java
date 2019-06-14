@@ -19,6 +19,7 @@ import java.util.Stack;
 import java.util.regex.Pattern;
 
 import nAutomata.*;
+import nAutomata.State.Type;
 import reTodfa.DFA;
 import reTodfa.NFA;
 import reTodfa.RegularExpression;
@@ -80,14 +81,30 @@ public class BuildAutomaton extends Automaton {
 	    for(Row r:table.getdistinguishedRows()){
 	    	count++;
 	    	fromState=this.getStatebydistinguishedName(r.distinguishContents());
-	    	if(r.getFirstContent()==State.Type.FINAL){
+	    	if(r.getFirstContent()==State.FINAL){
 	    		fromState.setFinal();
     		}
 	    	fromState.setLevel(r.getlevel());
+	    	//set fromstate type
+	    	switch(r.getFirstContent()){
+	    	case State.FINAL:{
+	    		fromState.settype(Type.FINAL);break;
+	    	}
+	    	case State.PREFIX:{
+	    		fromState.settype(Type.PREFIX);break;
+	    	}
+	    	case State.NO:{
+	    		fromState.settype(Type.SINK);break;
+	    	}
+	    	case State.INVALID:{
+	    		fromState.settype(Type.INVALID);break;
+	    	}
+	    	}
 			for(String a:table.setA){
 				String to=Word.deleteLambda(r.getLabel()+a);
 				Row toRow=table.getRowForPrefix(to);
 				toState=this.getStatebydistinguishedName(toRow.distinguishContents());
+		    	
 				newT=new Transition(fromState,toState, a);
     			fromState.setTransition(newT);
     			

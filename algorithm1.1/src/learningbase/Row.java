@@ -15,7 +15,7 @@ import java.util.List;
 
 public class Row {
 	// set of this row's data
-	List<Type> rowdata;
+	List<String> rowdata;
 	// this row's label, s in S/S.A
 	final String s;
 	// whether this row in S or SA
@@ -31,8 +31,8 @@ public class Row {
 	}
 		
 	//add value for a suffix 
-	void addValue(Type result){
-		rowdata.add(result);
+	void addValue(String string){
+		rowdata.add(string);
 	}
 	
 	//clear this row values
@@ -75,7 +75,7 @@ public class Row {
 	}
 	
 	//get all cell contents in this row
-	public List<Type> getContents(){
+	public List<String> getContents(){
 		return  Collections.unmodifiableList(rowdata);
 	}
 	//get a combined content for distinguishing this row
@@ -84,7 +84,7 @@ public class Row {
 			return  contents;
 		}
 	//get the first content. 
-	public Type getFirstContent(){
+	public String getFirstContent(){
 		return this.rowdata.get(0);
 	}
 	

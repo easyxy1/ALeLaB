@@ -11,6 +11,7 @@ import org.junit.Ignore;
 import org.junit.Test;
 
 import learningbase.BuildAutomaton;
+import learningbase.Learner;
 import learningbase.Teacher;
 import learningbase.Teacher.Strategy;
 import nAutomata.Automaton;
@@ -22,54 +23,29 @@ import reTodfa.RegularExpression;
 
 public class ProcessTest {
 
-	Set<String> alphabet =new HashSet<String>();
-	String RE;
-	File file;
-	Automaton automaton;
-	
-	@Before
-	public void setup(){
+	public static void main(String[] args) {
+		Set<String> alphabet=new HashSet<>();
 		alphabet.add("a");
 		alphabet.add("b");
-		RE="<a<1>>";
-	}
-	
-	@Ignore
-	public void testREtoDFA() {
+		alphabet.add("c");
+		alphabet.add("d");
+		alphabet.add("e");
+		alphabet.add("f");
+		alphabet.add("g");
+		alphabet.add("h");
+		alphabet.add("i");
+		String testpath="concreteExample.txt";
+		Teacher teacher1=new Teacher(Teacher.Fromfile,alphabet,Strategy.None,testpath);
+		//learning process
+		try {
+			Learner test1= new Learner(teacher1);
+			Graphviz.createDotGraph(test1.getLearnerAutomaton().simplityToStringforDot(), "teachervia1");
+			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
-		RegularExpression.clear();
-		RegularExpression.addalphabet(alphabet);
-		NFA nfa=RegularExpression.generateNFA(RE);
-		//add sink states
-		nfa.outputtoTXT("og");
-		nfa.expandtransitons();
-		nfa.outputtoTXT("ep");
-		
-		//System.out.println(nfa.allstateinformation());
-		DFA dfa=RegularExpression.generateDFA(nfa);
-		dfa.minimisedfa();
-		
-		dfa.outputtoTXT("teacherdfa");
-
-
 	}
-	
-	@Ignore
-	public void testDFAfileToAutomata() {
-		File file=new File("teacherdfa.txt");
-		Automaton test=new BuildAutomaton(file,alphabet);
-		Graphviz.createDotGraph(test.toStringforDot(), "outputname");
-
-
-	}
-	
-
-	@Test
-	public void testTeachercreation() {
-		Teacher teacher1=new Teacher(Teacher.FromRE,alphabet,Strategy.HORIZONTAL,RE);
-		Automaton a =teacher1.getAutomaton();
-		Graphviz.createDotGraph(a.toStringforDot(), "teacher3");
-	}//test pass only this single. if test all tests by sequence, nullpoint error comes.
-	
 		
 }

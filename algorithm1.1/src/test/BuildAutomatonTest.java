@@ -31,6 +31,13 @@ public class BuildAutomatonTest {
 	public void setup(){
 		alphabet.add("a");
 		alphabet.add("b");
+		alphabet.add("c");
+		alphabet.add("d");
+		alphabet.add("f");
+		alphabet.add("e");
+		alphabet.add("g");
+		alphabet.add("h");
+		alphabet.add("i");
 	}
 	
 	@Ignore
@@ -92,12 +99,13 @@ public class BuildAutomatonTest {
 	}
 	@Test
 	public void test3() {
+		String re="(a<(1e+f(c<(2gh+1i)d>)*)*b>)*";
 		
-		//BuildAutomaton test=new BuildAutomaton("a+b",alphabet);
-		Teacher teacher1=new Teacher(false,alphabet,Strategy.HORIZONTAL,"a+b+<1>");
+		Teacher teacher1=new Teacher(Teacher.FromRE,alphabet,Strategy.HORIZONTAL,re);
 		//test.printAutomaton();
 		//test.gettransitons();
 		teacher1.getAutomaton().visualisation();
+		Graphviz.createDotGraph(teacher1.getAutomaton().simplityToStringforDot(), "outNFA");
 		
 	}
 }

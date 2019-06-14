@@ -21,8 +21,8 @@ private boolean isDealocateTo=false;
 private boolean isDealocated=false;
 private int level;//which level this state belongs to 
 public enum Type{FINAL,SINK,PREFIX,INVALID}
-public static final String FINAL="I";
-public static final String NO="N";
+public static final String FINAL="1";
+public static final String NO="0";
 public static final String PREFIX="P";
 public static final String INVALID="X";
 private Type type;
@@ -68,6 +68,10 @@ public int getID(){
 
 public void settype(Type type){
 	this.type=type;
+}
+
+public Type getType(){
+	return this.type;
 }
 public void setInitial(){
 	this.isInitial=true;

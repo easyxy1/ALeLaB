@@ -57,23 +57,24 @@ public class Learner {
 		//learner.processMembershipQueriesForTables(learner.getLongPrefixLabels());
 		//ask membership queries through own method
 		processMembershipQueriesForTables(nOTable,teacher);
-		//nOTable.printTable();
+		nOTable.printTable();
 		// check and make sure table closed and consistent
 		makeTableClosedAndConsistent(nOTable);
 		//build an automaton with the closed  and consistent table
 		//Automaton aLearner= new BuildAutomaton(learner);
 		aLearner= new BuildAutomaton(nOTable);
 		//print table to console
-		//learner.printTable();
+		nOTable.printTable();
 		
 		//ask teacher for an equivalence query
 		String counterexample=teacher.checkAutomaton(aLearner);
+		
 		// Learner use the resule of the equivalence query. If there is a counter example, extends the table with the couterexample and modifies a new equivalence query. If not, terminates.
 		while (counterexample!=null) {
-			//System.out.println("counterexample:"+counterexample);
+			System.out.println("counterexample:"+counterexample);
 			//a new round starts
 			round++;
-			//control the max running times
+			//control the max running times, change it for huge example 
 			if(round>100){
 				System.out.println("stop by force");
 						break;
@@ -95,7 +96,7 @@ public class Learner {
 				System.out.println("Exception in "+e.getMessage()+"\r\n");
 			} 
 			//print table to console
-			//learner.printTable();
+			nOTable.printTable();
 			
 			try {
 				aLearner= new BuildAutomaton(nOTable);
@@ -112,7 +113,7 @@ public class Learner {
 			Graphviz.createDotGraph(this.getLearnerAutomaton().toStringforDot(), "example");
 		finish+="The learner got an automaton accepted the Teacher's language";
 		//algorithm terminates
-	//	System.out.println(finish);
+		System.out.println(finish);
 				
 		
 	}
@@ -141,19 +142,21 @@ public class Learner {
 					nOTable.addResult(prefix, suffix, teacher.getAnswer(word));
 					this.numberofMQ++;
 				}else
-					nOTable.addResult(prefix, suffix,State.Type.INVALID);
+					nOTable.addResult(prefix, suffix,State.INVALID);
 			}
 		}
 	}
 	private void makeTableClosedAndConsistent(Table table) throws IOException {
 		// TODO Auto-generated method stub
 		boolean closedAndConsistent = false;
-
+		int singleClosedround=0;
+		int singleConsisround=0;
 		while (!closedAndConsistent) {
 			closedAndConsistent = true;
 			//System.out.println("closed: "+table.isClosed());
 			if (!table.isClosed()) {
 				closedrounds++;
+				singleClosedround++;
 				closedAndConsistent = false;
 				table=closeTable(table);
 				//System.out.println("After modifying, closed is "+table.isClosed());
@@ -164,13 +167,14 @@ public class Learner {
 			
 			if (!table.isConsistentWithAlphabet()) {
 				consistentrounds++;
+				singleConsisround++;
 				closedAndConsistent = false;
 				table= ensureConsistency(table);
 				//System.out.println("After modifying, consistent is "+table.isConsistentWithAlphabet());
 				//table.printTable();
 			}
 		}
-		//System.out.println("After modified, table is closed and consistent: ");
+		System.out.println("After modified "+singleClosedround+" closednes "+singleConsisround+ " consistency, table is closed and consistent: ");
 		//table.printTable();
 		
 	}
